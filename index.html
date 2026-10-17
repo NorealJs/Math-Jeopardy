@@ -36,6 +36,34 @@ header {
   box-shadow: 0 12px 32px #102b4626;
 }
 
+.admin-settings {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #ffffff55;
+  border-radius: 12px;
+  background: #ffffff1a;
+  color: white;
+  cursor: pointer;
+  transition: background-color .16s ease, transform .16s ease;
+}
+
+.admin-settings:hover {
+  transform: rotate(20deg);
+  background: #ffffff30;
+}
+
+.admin-settings svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
 header h1 {
   letter-spacing: .045em;
   line-height: 1.15;
@@ -305,6 +333,11 @@ summary {
     flex: 1 1 145px;
   }
 
+  .admin-settings {
+    top: 12px;
+    right: 12px;
+  }
+
   .scorebar span {
     flex-basis: 100%;
   }
@@ -332,9 +365,65 @@ summary {
     transition: none;
   }
 }
+
+.admin-form {
+  display: grid;
+  gap: 14px;
+  max-width: 760px;
+}
+
+.admin-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #b9c9d9;
+  border-radius: 9px;
+  background: #fbfdff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.admin-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 </style></head><body>
-<header><h1>🎯 MATH JEOPARDY!</h1><p>Sequences and Series • General Mathematics • Grade 11</p><p><strong>Think. Solve. Explain.</strong></p><div class="nav"><button onclick="showTab('game')">Play the Game</button><button onclick="showTab('guide')">Teacher Guide</button><button onclick="resetGame()">Restart Game</button></div></header>
+<header><button class="admin-settings" type="button" onclick="showTab('admin')" aria-label="Admin editor" title="Admin editor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94a7.9 7.9 0 0 0 .06-.94 7.9 7.9 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.3 7.3 0 0 0-1.63-.94l-.36-2.54A.49.49 0 0 0 13.89 2h-3.78a.49.49 0 0 0-.49.42L9.26 4.96a7.3 7.3 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58a7.9 7.9 0 0 0-.06.94c0 .32.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.12.21.37.3.61.22l2.39-.96c.5.39 1.05.71 1.63.94l.36 2.54c.04.24.25.42.49.42h3.78c.24 0 .45-.18.49-.42l.36-2.54a7.3 7.3 0 0 0 1.63-.94l2.39.96c.24.09.49 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg></button><h1>🎯 MATH JEOPARDY!</h1><p>Sequences and Series • General Mathematics • Grade 11</p><p><strong>Think. Solve. Explain.</strong></p><div class="nav"><button onclick="showTab('game')">Play the Game</button><button onclick="showTab('guide')">Teacher Guide</button><button onclick="resetGame()">Restart Game</button></div></header>
 <main>
+<section id="admin" class="hidden">
+<div class="panel"><h2>Admin Editor</h2><p id="dataStatus" class="small" role="status">Connecting to Supabase...</p>
+<form id="loginForm" class="admin-form">
+<label>Email<input id="adminEmail" type="email" autocomplete="username" required></label>
+<label>Password<input id="adminPassword" type="password" autocomplete="current-password" required></label>
+<div class="admin-actions"><button class="primary" type="submit">Sign in</button></div>
+</form>
+<div id="adminTools" class="hidden">
+<p id="adminStatus" class="small" role="status"></p>
+<div id="emptyTableTools" class="hidden"><p>The Supabase table is empty. Publish the existing game questions to start editing them online.</p><button class="primary" type="button" onclick="seedDefaultQuestions()">Publish current game questions</button></div>
+<form id="questionForm" class="admin-form">
+<label for="questionSelect">Choose question to replace<select id="questionSelect"></select></label>
+<p id="slotMeta" class="small"></p>
+<label for="editQuestion">Question<textarea id="editQuestion" required></textarea></label>
+<label for="editAnswers">Accepted answers (one per line)<textarea id="editAnswers" required></textarea></label>
+<label for="editHint">Hint<textarea id="editHint" required></textarea></label>
+<label for="editSolution">Solution<textarea id="editSolution" required></textarea></label>
+<div class="admin-actions"><button class="primary" type="submit">Replace selected question</button><button class="secondary" type="button" onclick="signOutAdmin()">Sign out</button></div>
+</form>
+</div></div>
+</section>
 <section id="game">
 <div class="panel instructions"><strong>How to play</strong><ol><li>Choose a category and point value.</li><li>Read the question. You may write, say, or type your answer.</li><li>Enter an answer and select <b>Check answer</b>, or choose <b>Show solution</b> to review the worked answer.</li><li>After feedback, choose <b>Back to board</b> and continue. Used questions are disabled.</li></ol><p class="small">Accessibility: keyboard-operable buttons, readable contrast, no audio required, and a text-based alternative is available in the Teacher Guide. A calculator and formula sheet may be used if the teacher permits.</p></div>
 <div class="panel scorebar"><span>Team / learner score: <strong id="score">0</strong> points</span><span>Questions completed: <strong id="done">0</strong> / 25</span><span id="progressText">Choose a question to begin.</span></div>
@@ -357,9 +446,13 @@ summary {
 </section>
 <div class="footer">With the right support and flexible options, every learner can participate, explain, and grow.</div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL='https://mumriqkxtuzonqahanok.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_b2FCsWqVSz-Y6_DAqF4vdw_TgyC-BGh';
+const ADMIN_USER_ID='75839ec1-5526-4a09-86fc-878cb49e3c16';
 const categories=['Sequences','Series','Financial Applications','Problem Solving','Mixed Challenge'];
-const data=[
+let data=[
 [{q:'What is the common difference in 5, 9, 13, 17, …?',a:['4','four'],s:'Subtract consecutive terms: 9 − 5 = 4, 13 − 9 = 4. The common difference is 4.',h:'Compare two consecutive terms.'},{q:'Find the 10th term of 5, 9, 13, 17, …',a:['41','forty one','forty-one'],s:'aₙ = a₁ + (n − 1)d = 5 + (10 − 1)(4) = 41.',h:'Use aₙ = a₁ + (n − 1)d.'},{q:'A sequence has first term 12 and common difference −3. Find the 7th term.',a:['-6','negative 6'],s:'a₇ = 12 + (7 − 1)(−3) = 12 − 18 = −6.',h:'The common difference is negative.'},{q:'The 3rd term is 14 and the common difference is 5. Find the first term.',a:['4'],s:'a₃ = a₁ + 2d, so 14 = a₁ + 10. Therefore a₁ = 4.',h:'Write an equation for the third term.'},{q:'A sequence begins 3, 6, 12, 24, … Describe the pattern and give the 6th term.',a:['96','multiply by 2'],s:'Each term is multiplied by 2. The terms are 3, 6, 12, 24, 48, 96, so the 6th term is 96. (The key pattern is “multiply by 2.”)',h:'Look for a constant ratio.'}],
 [{q:'What is a series?',a:['sum of terms','the sum of terms','sum'],s:'A series is the sum of the terms of a sequence.',h:'Think of adding terms together.'},{q:'Find the sum of the first 5 terms of 2, 4, 6, 8, …',a:['30','thirty'],s:'The first five terms are 2 + 4 + 6 + 8 + 10 = 30.',h:'Find the fifth term, then add all five terms.'},{q:'Find the sum of the first 6 terms of the arithmetic sequence 3, 7, 11, 15, …',a:['78','seventy eight','seventy-eight'],s:'a₆ = 3 + 5(4) = 23. S₆ = 6/2(3 + 23) = 3(26) = 78.',h:'Use Sₙ = n/2(a₁ + aₙ).'}, {q:'Find the sum 1 + 2 + 4 + 8 + 16.',a:['31','thirty one','thirty-one'],s:'Add the five terms: 1 + 2 + 4 + 8 + 16 = 31.',h:'Add the five displayed terms.'},{q:'A student says the 10th term and the sum of the first 10 terms mean the same thing. Is the student correct? Explain briefly.',a:['no','no, they are different','not correct','they are different'],s:'No. The 10th term is one value; the sum of the first 10 terms is the total of terms 1 through 10.',h:'Compare “one term” with “total of many terms.”'}],
 [{q:'₱1,000 is invested at 5% annual compound interest for one year. What is the accumulated value?',a:['1050','₱1050','1,050','₱1,050'],s:'A = P(1 + r)ⁿ = 1,000(1.05)¹ = ₱1,050.',h:'Convert 5% to 0.05.'},{q:'₱5,000 is invested at 6% annual compound interest for 2 years. Find the accumulated value.',a:['5618','₱5618','5,618','₱5,618'],s:'A = 5,000(1.06)² = ₱5,618.',h:'Use A = P(1 + r)ⁿ.'},{q:'A loan payment is made at the end of every month. Name one detail needed before calculating the payment amount.',a:['interest rate','loan amount','number of payments','loan term','any of these'],s:'Possible details include loan principal, interest rate per period, number of payments, and whether payments occur at the beginning or end of each period.',h:'What information changes the payment calculation?'},{q:'An investment grows by 10% each year. If it starts at ₱2,000, what is its value after 3 years, compounded annually?',a:['2662','₱2662','2,662','₱2,662'],s:'A = 2,000(1.10)³ = ₱2,662.',h:'Multiply the starting amount by 1.10 three times.'},{q:'Two investments start at ₱4,000. A earns simple interest of 5% per year; B earns 5% annual compound interest. Which will have the greater value after 3 years, and why?',a:['b','investment b','compound','b because interest earns interest','compound interest'],s:'Investment B (compound interest) is greater because each year interest is earned on the accumulated balance, including earlier interest.',h:'Think about whether earlier interest earns interest too.'}],
@@ -369,14 +462,31 @@ const data=[
 // Fix answer aliases for mixed challenge last question to avoid a misleading shortcut.
 data[4][4].a=['arithmetic series','sum arithmetic sequence','1350','₱1350','₱1,350','1,350'];
 let score=0,done=new Set(),current=null,answered=false;
-function showTab(tab){document.getElementById('game').classList.toggle('hidden',tab!=='game');document.getElementById('guide').classList.toggle('hidden',tab!=='guide');window.scrollTo(0,0)}
-function buildBoard(){const board=document.getElementById('board');board.innerHTML='';categories.forEach((cat,c)=>{const el=document.createElement('div');el.className='category';el.textContent=cat;board.appendChild(el)});for(let r=0;r<5;r++)for(let c=0;c<5;c++){let id=c+'-'+r;let b=document.createElement('button');b.className='tile';b.textContent=(r+1)*100;b.setAttribute('aria-label',categories[c]+', '+((r+1)*100)+' points');b.disabled=done.has(id);b.onclick=()=>openQuestion(c,r,id);board.appendChild(b)}}
-function openQuestion(c,r,id){current={c,r,id};answered=false;let item=data[c][r];document.getElementById('qMeta').textContent=categories[c]+' • '+((r+1)*100)+' points';document.getElementById('qText').textContent=item.q;document.getElementById('qHint').textContent='Hint: '+item.h;document.getElementById('answerInput').value='';document.getElementById('feedback').className='feedback hidden';document.getElementById('questionPanel').classList.remove('hidden');document.getElementById('board').classList.add('hidden');document.getElementById('answerInput').focus()}
+let supabaseClient=null,cloudQuestions=[],adminUser=null;
+function showTab(tab){document.getElementById('game').classList.toggle('hidden',tab!=='game');document.getElementById('guide').classList.toggle('hidden',tab!=='guide');document.getElementById('admin').classList.toggle('hidden',tab!=='admin');window.scrollTo(0,0)}
+function pointValue(c,r){return data[c][r].pointValue??((r+1)*100)}
+function buildBoard(){const board=document.getElementById('board');board.innerHTML='';categories.forEach(cat=>{const el=document.createElement('div');el.className='category';el.textContent=cat;board.appendChild(el)});for(let r=0;r<5;r++)for(let c=0;c<5;c++){const id=c+'-'+r,item=data[c][r],value=pointValue(c,r),b=document.createElement('button');b.className='tile';b.textContent=value;b.setAttribute('aria-label',categories[c]+', '+value+' points');b.disabled=done.has(id);b.onclick=()=>openQuestion(c,r,id);board.appendChild(b)}}
+function openQuestion(c,r,id){current={c,r,id};answered=false;const item=data[c][r],value=pointValue(c,r);document.getElementById('qMeta').textContent=categories[c]+' • '+value+' points';document.getElementById('qText').textContent=item.q;document.getElementById('qHint').textContent='Hint: '+item.h;document.getElementById('answerInput').value='';document.getElementById('feedback').className='feedback hidden';document.getElementById('questionPanel').classList.remove('hidden');document.getElementById('board').classList.add('hidden');document.getElementById('answerInput').focus()}
 function normalize(s){return s.toLowerCase().replace(/[₱,]/g,'').replace(/[^a-z0-9.\- ]/g,'').replace(/\s+/g,' ').trim()}
-function checkAnswer(){if(!current)return;const item=data[current.c][current.r],raw=document.getElementById('answerInput').value.trim();if(!raw){showFeedback('Please enter an answer, or choose “Show solution” if you want to review the example.',false,false);return}const val=normalize(raw);let accepted=item.a.some(a=>normalize(a)===val);if(current.c===4&&current.r===4&&val.includes('1350'))accepted=true;if(accepted){if(!answered){score+=(current.r+1)*100;answered=true;document.getElementById('score').textContent=score;done.add(current.id);document.getElementById('done').textContent=done.size;buildBoard()}showFeedback('Correct! '+item.s,true,true)}else{showFeedback('Not quite yet. Review the hint and try again, or select “Show solution.” Remember to explain your steps. '+(answered?'':'No points awarded yet.'),false,false)}}
+function checkAnswer(){if(!current)return;const item=data[current.c][current.r],raw=document.getElementById('answerInput').value.trim();if(!raw){showFeedback('Please enter an answer, or choose “Show solution” if you want to review the example.',false,false);return}const val=normalize(raw);let accepted=item.a.some(a=>normalize(a)===val);if(current.c===4&&current.r===4&&val.includes('1350'))accepted=true;if(accepted){if(!answered){score+=pointValue(current.c,current.r);answered=true;document.getElementById('score').textContent=score;done.add(current.id);document.getElementById('done').textContent=done.size;buildBoard()}showFeedback('Correct! '+item.s,true,true)}else{showFeedback('Not quite yet. Review the hint and try again, or select “Show solution.” Remember to explain your steps. '+(answered?'':'No points awarded yet.'),false,false)}}
 function showSolution(){if(!current)return;const item=data[current.c][current.r];done.add(current.id);document.getElementById('done').textContent=done.size;buildBoard();showFeedback('Solution and feedback: '+item.s,false,true)}
 function showFeedback(text,correct,lock){const f=document.getElementById('feedback');f.textContent=text;f.className='feedback '+(correct?'correct': 'incorrect');f.classList.remove('hidden');if(lock){done.add(current.id);document.getElementById('done').textContent=done.size;buildBoard();document.getElementById('nextBtn').focus()}}
 function backToBoard(){document.getElementById('questionPanel').classList.add('hidden');document.getElementById('board').classList.remove('hidden');document.getElementById('progressText').textContent=done.size===25?'All questions completed! Review the exit ticket in Teacher Guide.':'Choose another question or open Teacher Guide for the exit ticket.';current=null}
 function resetGame(){score=0;done.clear();current=null;answered=false;document.getElementById('score').textContent='0';document.getElementById('done').textContent='0';document.getElementById('progressText').textContent='Choose a question to begin.';document.getElementById('questionPanel').classList.add('hidden');document.getElementById('board').classList.remove('hidden');buildBoard();showTab('game')}
+function setStatus(id,message,isError=false){const element=document.getElementById(id);element.textContent=message;element.classList.toggle('incorrect',isError)}
+function mapCloudQuestions(rows){if(rows.length!==25)throw new Error('Expected 25 questions, but found '+rows.length+'. The game needs five questions in each category.');const mapped=categories.map(()=>Array(5));for(const row of rows){const c=categories.indexOf(row.category),r=Number(row.sort_order)-1;if(c<0||r<0||r>4||mapped[c][r]||!Array.isArray(row.accepted_answers))throw new Error('The questions table contains an invalid category, position, or answer list.');mapped[c][r]={id:row.id,q:row.question,a:row.accepted_answers,s:row.solution,h:row.hint,pointValue:Number(row.point_value),sortOrder:Number(row.sort_order)};}if(mapped.some(column=>column.some(question=>!question)))throw new Error('One or more category positions are missing from the questions table.');return mapped}
+function refreshEditor(){const tools=document.getElementById('adminTools'),empty=document.getElementById('emptyTableTools'),form=document.getElementById('questionForm');if(!adminUser){tools.classList.add('hidden');return}tools.classList.remove('hidden');empty.classList.toggle('hidden',cloudQuestions.length!==0);form.classList.toggle('hidden',cloudQuestions.length!==25);const selector=document.getElementById('questionSelect'),selected=selector.value;selector.replaceChildren();for(const row of cloudQuestions){const option=document.createElement('option');option.value=row.id;option.textContent=row.category+' • '+row.point_value+' points — '+row.question.slice(0,70);selector.appendChild(option)}if(cloudQuestions.some(row=>String(row.id)===selected))selector.value=selected;if(cloudQuestions.length===25)loadEditorQuestion()}
+function loadEditorQuestion(){const row=cloudQuestions.find(item=>String(item.id)===document.getElementById('questionSelect').value);if(!row)return;document.getElementById('slotMeta').textContent='This replaces the question in '+row.category+' at '+row.point_value+' points. The category and point value stay the same.';document.getElementById('editQuestion').value=row.question;document.getElementById('editAnswers').value=row.accepted_answers.join('\n');document.getElementById('editHint').value=row.hint;document.getElementById('editSolution').value=row.solution}
+async function loadCloudQuestions(){const {data:rows,error}=await supabaseClient.from('questions').select('*').order('category').order('sort_order');if(error)throw error;cloudQuestions=rows;if(rows.length===0){setStatus('dataStatus','Connected to Supabase. The table is empty; the game is using its built-in questions until you publish them.');refreshEditor();return}data=mapCloudQuestions(rows);buildBoard();setStatus('dataStatus','Questions loaded from Supabase.');refreshEditor()}
+function updateAdminUI(session){adminUser=session?.user??null;const isAdmin=adminUser?.id===ADMIN_USER_ID;document.getElementById('loginForm').classList.toggle('hidden',isAdmin);if(isAdmin){setStatus('adminStatus','Signed in as the authorized admin.');refreshEditor()}else{document.getElementById('adminTools').classList.add('hidden');if(adminUser)setStatus('dataStatus','This account is not authorized to edit this game.',true)}}
+async function signOutAdmin(){if(!supabaseClient)return;const {error}=await supabaseClient.auth.signOut();if(error){setStatus('adminStatus','Sign out failed: '+error.message,true);return}adminUser=null;document.getElementById('adminTools').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');setStatus('dataStatus','Signed out. Questions remain available to play.')}
+async function seedDefaultQuestions(){if(!supabaseClient||adminUser?.id!==ADMIN_USER_ID)return;const rows=[];for(let c=0;c<categories.length;c++)for(let r=0;r<5;r++){const item=data[c][r];rows.push({category:categories[c],point_value:(r+1)*100,sort_order:r+1,question:item.q,accepted_answers:item.a,solution:item.s,hint:item.h})}setStatus('adminStatus','Publishing the current questions...');const {error}=await supabaseClient.from('questions').insert(rows);if(error){setStatus('adminStatus','Could not publish questions: '+error.message,true);return}try{await loadCloudQuestions();setStatus('adminStatus','All 25 questions are now in Supabase. Select a question to edit it.')}catch(error){setStatus('adminStatus','Questions were saved, but could not be reloaded: '+error.message,true)}}
+async function saveQuestion(event){event.preventDefault();const row=cloudQuestions.find(item=>String(item.id)===document.getElementById('questionSelect').value);if(!row)return;const answers=document.getElementById('editAnswers').value.split('\n').map(answer=>answer.trim()).filter(Boolean);if(!answers.length){setStatus('adminStatus','Enter at least one accepted answer.',true);return}const changes={question:document.getElementById('editQuestion').value.trim(),accepted_answers:answers,hint:document.getElementById('editHint').value.trim(),solution:document.getElementById('editSolution').value.trim()};setStatus('adminStatus','Replacing the selected question...');const {error}=await supabaseClient.from('questions').update(changes).eq('id',row.id);if(error){setStatus('adminStatus','Could not replace the question: '+error.message,true);return}try{await loadCloudQuestions();document.getElementById('questionSelect').value=String(row.id);loadEditorQuestion();setStatus('adminStatus','Question replaced. The updated content is now live in the same category and point slot.')}catch(error){setStatus('adminStatus','The question was replaced, but the questions could not be reloaded: '+error.message,true)}}
+async function initializeSupabase(){const loginForm=document.getElementById('loginForm');if(!SUPABASE_PUBLISHABLE_KEY||SUPABASE_PUBLISHABLE_KEY==='PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE'){loginForm.classList.add('hidden');setStatus('dataStatus','Add your Supabase publishable key in the configuration near the top of the script to enable online questions and admin sign-in. The built-in game still works.');buildBoard();return}if(!window.supabase?.createClient){loginForm.classList.add('hidden');setStatus('dataStatus','The Supabase client library did not load. Check your internet connection and reload the page.',true);buildBoard();return}supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);supabaseClient.auth.onAuthStateChange((_event,session)=>updateAdminUI(session));try{const {data:sessionData,error}=await supabaseClient.auth.getSession();if(error)throw error;updateAdminUI(sessionData.session);await loadCloudQuestions()}catch(error){setStatus('dataStatus','Could not connect to Supabase: '+error.message,true);buildBoard()}}
+document.getElementById('loginForm').addEventListener('submit',async event=>{event.preventDefault();if(!supabaseClient)return;const {error}=await supabaseClient.auth.signInWithPassword({email:document.getElementById('adminEmail').value,password:document.getElementById('adminPassword').value});if(error)setStatus('dataStatus','Sign-in failed: '+error.message,true);else{document.getElementById('adminPassword').value='';setStatus('dataStatus','Signed in. Checking admin access...')}});
+document.getElementById('questionSelect').addEventListener('change',loadEditorQuestion);
+document.getElementById('questionForm').addEventListener('submit',saveQuestion);
+buildBoard();
+initializeSupabase();
 buildBoard();
 </script></body></html>
