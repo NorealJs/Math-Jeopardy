@@ -2,6 +2,336 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Math Jeopardy! — Grade 11 General Mathematics</title>
 <style>
 :root{--navy:#092d5c;--blue:#0757a5;--sky:#e8f5ff;--gold:#ffd34e;--ink:#15263c;--green:#147d54;--purple:#7042a8;--red:#b82f48}*{box-sizing:border-box}body{margin:0;background:#f3f7fb;color:var(--ink);font:18px/1.5 Arial,Helvetica,sans-serif}header{background:linear-gradient(120deg,#06264c,#0757a5);color:white;padding:24px 18px;text-align:center}h1{font-size:clamp(2rem,5vw,3.3rem);margin:0}header p{margin:4px 0 14px}.nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.nav button,.primary{border:0;border-radius:9px;padding:11px 16px;font-weight:bold;font-size:1rem;cursor:pointer}.nav button{background:white;color:var(--navy)}button:focus-visible,input:focus-visible{outline:4px solid #ffbf00;outline-offset:3px}main{max-width:1200px;margin:auto;padding:18px}.panel{background:white;border:1px solid #d0dce9;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 3px 10px #102b4610}.hidden{display:none!important}.instructions{background:var(--sky);border-left:6px solid var(--blue)}.board{display:grid;grid-template-columns:repeat(5,minmax(125px,1fr));gap:8px}.category{background:var(--navy);color:white;text-align:center;padding:14px 6px;border-radius:8px;font-weight:bold;min-height:82px;display:flex;align-items:center;justify-content:center}.tile{background:#0b4d91;color:#ffdc62;border:2px solid #c9e5ff;border-radius:8px;min-height:68px;font-size:1.35rem;font-weight:bold;cursor:pointer}.tile:disabled{background:#dce4ed;color:#68788a;cursor:not-allowed}.tile:hover:not(:disabled){background:#176eb9}.primary{background:var(--gold);color:#172b42}.secondary{background:#e7eef7;color:var(--navy);border:1px solid #b6c7d9}.question h2{color:var(--navy)}.answer-row{display:flex;gap:8px;flex-wrap:wrap}.answer-row input{flex:1;min-width:200px;padding:12px;font-size:1rem;border:2px solid #aabdd0;border-radius:8px}.feedback{padding:12px;border-radius:8px;margin-top:12px;background:#e8f5ff}.correct{background:#e0f7e9;border-left:5px solid var(--green)}.incorrect{background:#fff0e8;border-left:5px solid #c66a24}.scorebar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:bold}.small{font-size:.92rem;color:#43566b}.columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.stage{border-top:5px solid var(--blue);background:#f6faff;padding:12px;border-radius:8px}.stage h3{margin:0 0 6px}.teacher h2{color:var(--navy)}table{border-collapse:collapse;width:100%;margin:10px 0}th,td{border:1px solid #b8c9da;padding:9px;text-align:left;vertical-align:top}th{background:#e7f2fc}.pill{display:inline-block;background:#e6effa;padding:3px 9px;border-radius:99px;font-size:.9rem}.footer{text-align:center;color:#fff;background:#303b85;padding:14px;border-radius:10px}ol,ul{padding-left:24px}@media(max-width:800px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}.category{min-height:58px}.tile{min-height:56px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>
+:root {
+  --navy: #102b4e;
+  --blue: #1769aa;
+  --sky: #edf6ff;
+  --gold: #ffd166;
+  --ink: #172b42;
+  --green: #16794b;
+  --purple: #7042a8;
+  --red: #b82f48;
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top left, #e2f1ff 0, transparent 38rem),
+    #f4f7fb;
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+header {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(32px, 6vw, 64px) 20px 30px;
+  background:
+    radial-gradient(ellipse at 85% 10%, #3d83bb 0, transparent 34%),
+    linear-gradient(135deg, #0b2038, #123c68 58%, #1769aa);
+  box-shadow: 0 12px 32px #102b4626;
+}
+
+header h1 {
+  letter-spacing: .045em;
+  line-height: 1.15;
+  text-shadow: 0 3px 16px #00152b55;
+}
+
+header p {
+  color: #e0efff;
+}
+
+header p strong {
+  color: var(--gold);
+  letter-spacing: .04em;
+}
+
+.nav {
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.nav button,
+.primary,
+.secondary {
+  min-height: 46px;
+  border-radius: 10px;
+  transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+
+.nav button {
+  padding: 11px 18px;
+  box-shadow: 0 3px 10px #00152b25;
+}
+
+.nav button:hover,
+.primary:hover,
+.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 16px #102b4626;
+}
+
+.nav button:nth-child(3) {
+  background: #e7eef7;
+}
+
+main {
+  max-width: 1180px;
+  padding: clamp(16px, 3vw, 32px);
+}
+
+.panel {
+  margin-bottom: 20px;
+  padding: clamp(18px, 3vw, 26px);
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px #1837570d;
+}
+
+.panel h2 {
+  margin-top: 0;
+  line-height: 1.3;
+}
+
+.instructions {
+  border: 1px solid #cfe4f8;
+  border-left: 5px solid var(--blue);
+  background: linear-gradient(120deg, #f0f8ff, #e8f4ff);
+}
+
+.scorebar {
+  align-items: center;
+  gap: 10px;
+}
+
+.scorebar span {
+  flex: 1 1 190px;
+  padding: 10px 14px;
+  border: 1px solid #e1e9f2;
+  border-radius: 10px;
+  background: #f7f9fc;
+}
+
+.scorebar span strong {
+  color: var(--blue);
+  font-size: 1.15em;
+}
+
+.board {
+  gap: 10px;
+}
+
+.category {
+  min-height: 88px;
+  padding: 14px 10px;
+  border: 1px solid #315273;
+  border-radius: 11px;
+  background: linear-gradient(150deg, #183a60, #102b4e);
+  box-shadow: 0 5px 12px #102b4614;
+  line-height: 1.3;
+}
+
+.tile {
+  min-height: 72px;
+  border: 1px solid #c6dff4;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #2477b8, #14558d);
+  color: #fff1b9;
+  box-shadow: 0 4px 10px #102b4617;
+  transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.tile:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(145deg, #348bc9, #1769aa);
+  box-shadow: 0 8px 16px #102b4626;
+}
+
+.tile:disabled {
+  border-color: #d8e0e9;
+  background: #e8edf3;
+  color: #66778a;
+  box-shadow: none;
+}
+
+.question h2,
+.teacher h2 {
+  color: var(--navy);
+}
+
+.question h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+}
+
+.answer-row {
+  align-items: stretch;
+  gap: 10px;
+}
+
+.answer-row input {
+  min-height: 48px;
+  border: 1px solid #b9c9d9;
+  border-radius: 10px;
+  background: #fbfdff;
+}
+
+.answer-row input:focus-visible {
+  border-color: var(--blue);
+}
+
+.primary {
+  padding: 11px 18px;
+  background: linear-gradient(135deg, #ffdb78, #ffc94f);
+  color: #26364b;
+}
+
+.secondary {
+  padding: 10px 16px;
+  border: 1px solid #d1deeb;
+  background: #f0f4f9;
+  color: var(--navy);
+}
+
+.feedback {
+  padding: 16px;
+  border: 1px solid #cfe2f2;
+  border-radius: 11px;
+  background: #eff7ff;
+}
+
+.correct {
+  border-left: 5px solid var(--green);
+  background: #ecf8f0;
+}
+
+.incorrect {
+  border-left: 5px solid #c66a24;
+  background: #fff5ec;
+}
+
+.small {
+  color: #52657a;
+}
+
+.pill {
+  padding: 5px 11px;
+  background: #eaf3fc;
+  color: #264e75;
+  font-weight: 700;
+}
+
+.stage {
+  border: 1px solid #e0e9f2;
+  border-top: 4px solid var(--blue);
+  border-radius: 11px;
+  background: linear-gradient(145deg, #fbfdff, #f2f7fc);
+  padding: 16px;
+}
+
+.stage h3 {
+  color: var(--navy);
+}
+
+table {
+  overflow: hidden;
+  border: 1px solid #d8e3ee;
+  border-radius: 10px;
+}
+
+th,
+td {
+  border-color: #d8e3ee;
+  padding: 11px 12px;
+}
+
+th {
+  background: #eaf3fc;
+  color: var(--navy);
+}
+
+tbody tr:nth-child(even) {
+  background: #f7f9fc;
+}
+
+details {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid #dce5ef;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--navy);
+}
+
+.footer {
+  margin-top: 26px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #172f56, #303b85);
+  box-shadow: 0 8px 20px #102b4617;
+}
+
+@media (max-width: 800px) {
+  .board {
+    grid-template-columns: repeat(5, minmax(112px, 1fr));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 8px;
+  }
+
+  .category {
+    min-height: 64px;
+  }
+
+  .tile {
+    min-height: 60px;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+
+  .nav button {
+    flex: 1 1 145px;
+  }
+
+  .scorebar span {
+    flex-basis: 100%;
+  }
+
+  .answer-row input {
+    flex-basis: 100%;
+  }
+
+  .answer-row button {
+    flex: 1 1 auto;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav button,
+  .primary,
+  .secondary,
+  .tile {
+    transition: none;
+  }
+}
 </style></head><body>
 <header><h1>🎯 MATH JEOPARDY!</h1><p>Sequences and Series • General Mathematics • Grade 11</p><p><strong>Think. Solve. Explain.</strong></p><div class="nav"><button onclick="showTab('game')">Play the Game</button><button onclick="showTab('guide')">Teacher Guide</button><button onclick="resetGame()">Restart Game</button></div></header>
 <main>
