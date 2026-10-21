@@ -3,13 +3,14 @@ import legacyMarkup from './legacy-content.html?raw';
 
 const tabs = [
   ['learn', 'Learn First'],
+  ['visual', 'Visual pathway'],
   ['game', 'Play Jeopardy'],
   ['assessment', 'Exit Ticket'],
   ['guide', 'Teacher Guide']
 ];
 
 const contentMarkup = legacyMarkup.replace(
-  /(<section\b[^>]*\bid="(?:admin|share|game|assessment|guide)"[^>]*?)\sclass="hidden(?:\s+([^"]+))?"/g,
+  /(<section\b[^>]*\bid="(?:admin|share|game|assessment|guide|visual)"[^>]*?)\sclass="hidden(?:\s+([^"]+))?"/g,
   (_, section, remainingClasses = '') => `${section} class="${remainingClasses}"`
 );
 

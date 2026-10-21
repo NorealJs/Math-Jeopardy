@@ -1088,12 +1088,21 @@ footer {
 }
 
 .app-content[data-active-tab="learn"] > #learn,
+.app-content[data-active-tab="visual"] > #visual,
 .app-content[data-active-tab="game"] > #game,
 .app-content[data-active-tab="assessment"] > #assessment,
 .app-content[data-active-tab="guide"] > #guide,
 .app-content[data-active-tab="admin"] > #admin,
 .app-content[data-active-tab="share"] > #share {
   display: block;
+}
+
+.video-placeholder {
+  padding: 28px 18px;
+  border: 1px dashed #aabdd0;
+  border-radius: 12px;
+  background: #f6faff;
+  text-align: center;
 }
 
 .runtime-error {
@@ -1117,4 +1126,3 @@ footer {
     display: flex;
   }
 }
-
