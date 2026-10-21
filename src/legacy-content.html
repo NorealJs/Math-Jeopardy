@@ -1,0 +1,114 @@
+<section id="admin" class="hidden">
+<div class="panel"><h2>Admin Editor</h2><p id="dataStatus" class="small" role="status">Connecting to Supabase...</p>
+<form id="loginForm" class="admin-form">
+<label>Email<input id="adminEmail" type="email" autocomplete="username" required></label>
+<label>Password<input id="adminPassword" type="password" autocomplete="current-password" required></label>
+<div class="admin-actions"><button class="primary" type="submit">Sign in</button></div>
+</form>
+<div id="adminTools" class="hidden">
+<p id="adminStatus" class="small" role="status"></p>
+<div id="emptyTableTools" class="hidden"><p>The Supabase table is empty. Publish the existing game questions to start editing them online.</p><button class="primary" type="button" onclick="seedDefaultQuestions()">Publish current game questions</button></div>
+<div id="versionUpdateTools" class="hidden"><p>The Supabase table contains the previous question set. Replacing it will overwrite all current questions and restore the full improved set.</p><button class="primary" type="button" onclick="replaceWithImprovedQuestions()">Replace all questions with improved set</button></div>
+<form id="questionForm" class="admin-form">
+<label for="questionSelect">Choose question to replace<select id="questionSelect"></select></label>
+<p id="slotMeta" class="small"></p>
+<label for="editQuestion">Question<textarea id="editQuestion" required></textarea></label>
+<label for="editAnswers">Accepted answers (one per line)<textarea id="editAnswers" required></textarea></label>
+<label for="editHint">Hint<textarea id="editHint" required></textarea></label>
+<label for="editSolution">Solution<textarea id="editSolution" required></textarea></label>
+<div class="admin-actions"><button class="primary" type="submit">Replace selected question</button><button class="secondary" type="button" onclick="signOutAdmin()">Sign out</button></div>
+</form>
+</div></div>
+</section>
+<section id="learn">
+<div class="panel instructions"><h2>Start Here: How to Solve a Word Problem</h2><p>Do not rush to choose a formula. Read the problem, identify what the question asks, and explain why your formula fits. You may write your work on paper, talk it through with a partner, or type notes below.</p>
+<div class="steps">
+<div class="step"><strong>1. GIVEN</strong>List the important information, numbers, units, rate, and time.</div>
+<div class="step"><strong>2. ASKED</strong>State exactly what you need to find: one term, a total, accumulated value, or payment.</div>
+<div class="step"><strong>3. FORMULA / MODEL</strong>Choose the formula that matches the situation. Explain your choice.</div>
+<div class="step"><strong>4. SUBSTITUTE</strong>Replace the variables with the given values and show calculations.</div>
+<div class="step"><strong>5. ANSWER + CHECK</strong>Include units, interpret the result, and check if it is reasonable.</div>
+</div></div>
+<div class="panel"><h2>Formula Sheet</h2><p class="small">Use this as a learning support. In a class assessment, your teacher will tell you whether it may be used.</p>
+<div class="formulas">
+<div class="formula"><h3>Arithmetic sequence: one term</h3><p class="math">aₙ = a₁ + (n − 1)d</p><p>Use when the amount changes by the same difference each period. Find one particular term, not the total.</p></div>
+<div class="formula"><h3>Arithmetic series: total</h3><p class="math">Sₙ = n/2 [2a₁ + (n − 1)d]</p><p>Or <span class="math">Sₙ = n/2 (a₁ + aₙ)</span>. Use when adding the first n terms of an arithmetic sequence.</p></div>
+<div class="formula"><h3>Geometric sequence: one term</h3><p class="math">aₙ = a₁rⁿ⁻¹</p><p>Use when each term is multiplied by the same ratio.</p></div>
+<div class="formula"><h3>Geometric series: total</h3><p class="math">Sₙ = a₁(rⁿ − 1)/(r − 1), r ≠ 1</p><p>Use to find the sum of the first n terms of a geometric sequence. If r = 1, then Sₙ = na₁.</p></div>
+<div class="formula"><h3>Compound interest: accumulated value</h3><p class="math">A = P(1 + i)ⁿ</p><p>P = starting principal; i = interest rate per compounding period as a decimal; n = number of periods. Use for a single starting amount growing with compound interest.</p></div>
+<div class="formula"><h3>Equal periodic loan payments</h3><p class="math">R = P i / [1 − (1 + i)⁻ⁿ]</p><p>For equal payments at the end of each period on a loan with a fixed periodic interest rate. P = loan principal; i = rate per payment period; n = total number of payments. This formula assumes a standard fully amortizing loan and excludes fees or other charges.</p></div>
+</div>
+<p><strong>Remember:</strong> a sequence is a list of terms; a series is the sum of terms. A single investment growing over time is different from repeated deposits or loan payments.</p></div>
+<div class="panel"><h2>Worked Example: Savings Plan</h2><p><strong>Problem:</strong> Ana saves ₱100 in week 1 and increases the amount she saves by ₱50 every week. How much does she save in week 4? How much does she save altogether in the first 4 weeks?</p><ol>
+<li><strong>Given:</strong> first weekly deposit a₁ = ₱100, common difference d = ₱50, number of weeks n = 4.</li><li><strong>Asked:</strong> the deposit in week 4, and the total deposited in 4 weeks.</li><li><strong>Choose:</strong> use the arithmetic sequence formula for the week-4 deposit; use the arithmetic series formula for the total.</li><li><strong>Substitute:</strong> a₄ = 100 + (4 − 1)(50) = ₱250.</li><li><strong>Total:</strong> deposits are ₱100, ₱150, ₱200, ₱250. S₄ = 100 + 150 + 200 + 250 = ₱700.</li><li><strong>Check:</strong> the deposits rise by ₱50 each week, and their sum is ₱700.</li>
+</ol></div>
+<div class="panel"><h2>Worked Example: Periodic Loan Payment</h2><p><strong>Problem:</strong> A borrower takes a ₱12,000 loan at 1% interest per month and repays it with 12 equal payments at the end of each month. Find the monthly payment. Ignore fees.</p><ol>
+<li><strong>Given:</strong> P = ₱12,000, i = 0.01 per month, n = 12 payments.</li><li><strong>Asked:</strong> the equal monthly payment R.</li><li><strong>Choose:</strong> use the periodic loan-payment formula because the loan is repaid through equal payments each month.</li><li><strong>Substitute:</strong> R = 12000(0.01) / [1 − (1.01)⁻¹²].</li><li><strong>Calculate:</strong> R ≈ ₱1,066.19 per month.</li><li><strong>Check:</strong> 12 payments total about ₱12,794.28, more than the original loan because interest is included. Small differences may occur from rounding.</li>
+</ol><p class="small">Teacher note: use the calculator for this example and explain that the interest rate and payment period must use the same time unit.</p></div>
+<div class="actions"><button class="primary" onclick="showTab('game')">I’m ready to play</button></div>
+</section>
+<section id="share" class="hidden">
+<div id="sharePanel" class="panel">
+<h2>Share Math Jeopardy</h2>
+<p>Scan this QR code with a phone or tablet camera to open the game.</p>
+<div class="share-layout">
+<div id="qrFrame"><div id="qrCode" aria-label="QR code for this game"></div><p id="qrPlaceholder" class="small">The QR code will appear here after deployment.</p></div>
+<div class="share-details">
+<p id="qrStatus" role="status" aria-live="polite">Preparing your share link...</p>
+<label for="shareUrl">Game link</label>
+<input id="shareUrl" type="text" readonly>
+<div class="share-actions">
+<button id="copyShareLink" class="primary" type="button" onclick="copyShareLink()">Copy link</button>
+<button id="downloadShareQRCode" class="secondary" type="button" onclick="downloadShareQRCode()">Download QR</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="game" class="hidden">
+<div class="panel instructions"><h2>How to Play</h2><ol><li>Choose a category and point value. Questions progress from easier identification to more complex applications.</li><li>Before calculating, state the given information and what is being asked.</li><li>Write your solution on paper, explain orally to your partner, or type your reasoning in the notes box.</li><li>Use the hint if needed. Reveal the worked solution to review each step.</li><li>The teacher awards full or partial credit based on the answer and reasoning.</li></ol><p class="small">No audio or internet is required after saving this file. You may use the formula sheet and calculator if your teacher permits.</p></div>
+<div class="panel scorebar"><span>Score: <strong id="score">0</strong> points</span><span>Questions reviewed: <strong id="done">0</strong> / 25</span><span id="progressText">Choose a question to begin.</span></div>
+<div id="board" class="board" aria-label="Jeopardy question board"></div>
+<div id="questionPanel" class="panel question hidden" aria-live="polite"><p id="qMeta" class="small"></p><p id="qText" class="qtext"></p><p id="qHint" class="hint"></p>
+<label for="givenInput">Step 1 — What is given?</label><textarea id="givenInput" placeholder="List the known values and units (optional)"></textarea>
+<label for="askedInput">Step 2 — What is asked?</label><input id="askedInput" placeholder="State what you need to find (optional)">
+<label for="formulaInput">Step 3 — Formula and why it fits</label><textarea id="formulaInput" placeholder="Write the formula or explain your choice (optional)"></textarea>
+<label for="workInput">Step 4 — Substitution and calculations</label><textarea id="workInput" placeholder="Show your working (optional)"></textarea>
+<label for="answerInput">Step 5 — Final answer (or short explanation)</label><input id="answerInput" placeholder="Type the answer here">
+<p class="small">You can also answer aloud or on paper. The typed answer checker is a support, not the final judge of mathematical reasoning.</p>
+<div class="actions"><button class="primary" onclick="checkAnswer()">Check answer</button><button class="secondary" onclick="showSolution()">Show worked solution</button><button class="secondary" onclick="backToBoard()">Back to board</button></div>
+<div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div></div>
+<div class="panel"><strong>Scoring:</strong> Correct typed answers earn the tile value. For oral or written responses, the teacher may award partial credit for correct given information, formula choice, setup, calculations, or reasoning even if the final answer is not correct.</div>
+</section>
+<section id="assessment" class="hidden">
+<div class="panel"><h2>Exit Ticket — Individual Check</h2><p>Complete these independently after the game. Show your steps. Use the five-step guide if your teacher allows it.</p><ol>
+<li>A learner saves ₱80 in week 1 and increases the weekly deposit by ₱20. Find the deposit in week 6.</li>
+<li>Using the same savings plan, find the total deposited during the first 6 weeks.</li>
+<li>₱5,000 is invested at 6% annual compound interest for 2 years. Find the accumulated value.</li>
+<li>A ₱10,000 loan has an interest rate of 1% per month and is repaid in 10 equal end-of-month payments. Use the periodic payment formula to estimate the payment. Ignore fees.</li>
+<li>Explain one clue that helps you decide whether to find a single sequence term, a series sum, an accumulated value, or a periodic payment.</li>
+</ol><details><summary><strong>Show answer and feedback guide</strong></summary><ol>
+<li>a₆ = 80 + 5(20) = ₱180.</li><li>Terms: 80, 100, 120, 140, 160, 180. Total = ₱780.</li><li>A = 5000(1.06)² = ₱5,618.</li><li>R = 10000(0.01) / [1 − (1.01)⁻¹⁰] ≈ ₱1,055.82 per month.</li><li>Accept: “one term” asks for one period's value; “total/altogether” asks for a series sum; “value after growth/compounding” asks for accumulated value; “equal loan payments” asks for periodic payment.</li>
+</ol></details></div>
+</section>
+<section id="guide" class="hidden teacher">
+<div class="panel"><h2>Teacher Guide</h2><p><strong>Target learners:</strong> Grade 11 Senior High School learners taking General Mathematics.</p><p><strong>Learning focus:</strong> Apply sequences and series to financial problems, including accumulated investment values and periodic loan payments.</p><p><strong>Purpose:</strong> This is a guided practice and formative assessment resource, not a replacement for explicit teaching. It is designed around learner-reported difficulties with word problems, formula recall, and the need for step-by-step explanations.</p><p><strong>Materials:</strong> This HTML file saved on a device; laptop/computer/tablet and projector if available; paper and pencil; optional calculator; printed formula sheet and question cards if needed. No internet connection is required after the file is saved.</p></div>
+<div class="panel"><h2>Suggested 60-minute sequence</h2><table><thead><tr><th>Stage</th><th>Time</th><th>Teacher role</th><th>Learner action</th></tr></thead><tbody>
+<tr><td>Entry and instructions</td><td>5 min</td><td>Explain the goal, the five-step strategy, and scoring. Let learners know they may respond on paper or orally.</td><td>Read instructions and identify the available supports.</td></tr>
+<tr><td>Formula review and modeling</td><td>12 min</td><td>Review relevant formulas and model the savings example, naming the clue that signals a term versus a total.</td><td>Annotate given/asked, formula choice, substitution, and answer.</td></tr>
+<tr><td>Guided practice</td><td>18 min</td><td>Form pairs/small groups. Prompt learners to explain why a formula fits before calculating. Give hints without immediately revealing answers.</td><td>Choose tiles, discuss, show work, and explain reasoning.</td></tr>
+<tr><td>Independent practice</td><td>10 min</td><td>Ask each learner to solve at least one problem individually and observe their strategy.</td><td>Complete one solution independently.</td></tr>
+<tr><td>Feedback and correction</td><td>8 min</td><td>Review worked solutions. Address formula choice, rate per period, payment timing, units, and arithmetic errors.</td><td>Compare, correct, and explain revised work.</td></tr>
+<tr><td>Exit ticket</td><td>7 min</td><td>Collect individual answers and use them to plan reteaching.</td><td>Complete the exit ticket independently.</td></tr></tbody></table></div>
+<div class="panel"><h2>Scaffolding and accessibility (UDL)</h2><ul>
+<li><strong>Multiple ways to access:</strong> read questions aloud, print questions, explain financial vocabulary, and point to the formula sheet.</li>
+<li><strong>Multiple ways to participate:</strong> individual, pair, or group play; extra thinking time; oral discussion; or written response.</li>
+<li><strong>Multiple ways to show learning:</strong> accept typed, spoken, or handwritten solutions. Score mathematical reasoning using the same criteria.</li>
+<li><strong>Language support:</strong> clarify words such as principal, interest rate, accumulated value, installment, monthly payment, total, and period.</li>
+<li><strong>Limited technology:</strong> project the board and let learners solve on paper; or print the questions and worked solutions as cards. This HTML works offline once saved.</li>
+<li><strong>Different needs:</strong> use large print, formula sheet, calculator where appropriate, fewer questions with the same learning target, and additional time.</li>
+</ul></div>
+<div class="panel"><h2>Assessment rubric for each problem</h2><table><thead><tr><th>Criterion</th><th>What to look for</th><th>Suggested points</th></tr></thead><tbody>
+<tr><td>Understand</td><td>Correctly identifies given information and what is asked.</td><td>1</td></tr><tr><td>Choose</td><td>Selects a suitable formula/model and gives a reason.</td><td>1</td></tr><tr><td>Solve</td><td>Substitutes values and performs calculations correctly.</td><td>1</td></tr><tr><td>Explain</td><td>Gives answer with units and interprets it in context.</td><td>1</td></tr></tbody></table><p class="small">Use this four-point rubric for teacher-scored paper or oral answers. Adjust scoring for shorter identification questions.</p></div>
+<div class="panel"><h2>Important teacher note</h2><p>The periodic loan-payment formula in this resource assumes equal payments at the end of each period, a fixed rate per period, and a standard fully amortizing loan. It does not include fees, insurance, or changing rates. Explain these assumptions and check that the formula matches the curriculum and lesson scope before use.</p></div>
+</section>
