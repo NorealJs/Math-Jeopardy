@@ -89,6 +89,11 @@ function App() {
         </nav>
       </header>
       <main className="app-content" data-active-tab={activeTab} dangerouslySetInnerHTML={{ __html: contentMarkup }} />
+      <dialog id="saveSuccessDialog" aria-labelledby="saveSuccessTitle" aria-describedby="saveSuccessMessage">
+        <h2 id="saveSuccessTitle">Question successfully edited!</h2>
+        <p id="saveSuccessMessage">Your changes have been saved and are now live.</p>
+        <form method="dialog"><button className="primary">Close</button></form>
+      </dialog>
       {legacyError && <p className="runtime-error" role="alert">{legacyError}</p>}
     </>
   );
