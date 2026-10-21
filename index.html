@@ -64,6 +64,35 @@ header {
   fill: currentColor;
 }
 
+.qr-settings {
+  position: absolute;
+  z-index: 2;
+  top: 64px;
+  right: 16px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #ffffff55;
+  border-radius: 10px;
+  background: #ffffff1a;
+  color: white;
+  cursor: pointer;
+  transition: background-color .16s ease, transform .16s ease;
+}
+
+.qr-settings:hover {
+  transform: translateY(-1px);
+  background: #ffffff30;
+}
+
+.qr-settings svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
 header h1 {
   letter-spacing: .045em;
   line-height: 1.15;
@@ -458,6 +487,30 @@ summary {
   background: #ecf8f0;
 }
 
+dialog {
+  width: min(440px, calc(100% - 32px));
+  padding: 28px;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  background: white;
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 16px 48px #102b4640;
+}
+
+dialog::backdrop {
+  background: #102b4673;
+}
+
+dialog h2 {
+  margin: 0 0 8px;
+  color: var(--green);
+}
+
+dialog p {
+  margin: 0 0 20px;
+}
+
 .feedback.review {
   border-left: 5px solid #c66a24;
   background: #fff5ec;
@@ -475,6 +528,7 @@ footer {
 @media print {
   header .nav,
   .admin-settings,
+  .qr-settings,
   .actions,
   .tile {
     print-color-adjust: exact;
@@ -489,8 +543,505 @@ footer {
     box-shadow: none;
   }
 }
+
+body {
+  background: #f5f7fa;
+  color: #1d2b3a;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+header {
+  padding: clamp(30px, 5vw, 52px) 20px 24px;
+  background: #173b5f;
+  box-shadow: none;
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: .01em;
+  text-shadow: none;
+}
+
+header p {
+  margin: 8px 0;
+}
+
+header p strong {
+  letter-spacing: .02em;
+}
+
+.nav {
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.nav button {
+  min-height: 42px;
+  padding: 8px 12px;
+  font-size: .95rem;
+  border: 1px solid #ffffff35;
+  background: #ffffff12;
+  color: white;
+  box-shadow: none;
+}
+
+.nav button:nth-child(3) {
+  background: #ffffff12;
+}
+
+.nav button:hover {
+  background: #ffffff24;
+  box-shadow: none;
+}
+
+.nav button:last-child {
+  border-color: #ffd16680;
+  color: #ffe3a0;
+}
+
+.nav button[onclick="showTab('share')"] {
+  display: none;
+}
+
+.admin-settings {
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+main {
+  max-width: 1080px;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+.panel {
+  margin-bottom: 16px;
+  padding: clamp(18px, 3vw, 24px);
+  border-color: #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px #18375708;
+}
+
+.panel h2 {
+  margin-bottom: 10px;
+  color: #173b5f;
+}
+
+.instructions {
+  border-color: #dbe8f4;
+  border-left: 4px solid #4c83b1;
+  background: #f0f6fb;
+}
+
+.scorebar {
+  padding: 14px;
+}
+
+.scorebar span {
+  border-color: #e6ebf1;
+  background: #f8fafc;
+  font-weight: 600;
+}
+
+.scorebar span strong {
+  color: #1769aa;
+}
+
+.category {
+  min-height: 80px;
+  border: 1px solid #dce5ee;
+  background: #edf3f8;
+  color: #274765;
+  box-shadow: none;
+  font-size: .95rem;
+}
+
+.tile {
+  min-height: 66px;
+  border: 1px solid #d8e4ef;
+  background: #fff;
+  color: #1769aa;
+  box-shadow: none;
+}
+
+.tile:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #8db5d8;
+  background: #f1f7fc;
+  box-shadow: 0 3px 8px #18375710;
+}
+
+.tile:disabled {
+  background: #f0f2f5;
+  color: #9aa6b2;
+}
+
+button,
+input,
+select,
+textarea,
+summary {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #e5a900;
+  outline-offset: 3px;
+}
+
+.nav button,
+.primary,
+.secondary,
+.tile {
+  transition: border-color .16s ease, background-color .16s ease, color .16s ease, transform .16s ease;
+}
+
+.primary {
+  border: 1px solid #e9bb51;
+  background: #ffd166;
+  color: #26364b;
+}
+
+.primary:hover {
+  background: #ffda82;
+  box-shadow: none;
+}
+
+.secondary {
+  border-color: #d7e0e9;
+  background: #f5f7fa;
+  color: #344d66;
+}
+
+.secondary:hover {
+  background: #eaf0f6;
+  box-shadow: none;
+}
+
+.admin-form {
+  gap: 12px;
+}
+
+.admin-form label {
+  gap: 5px;
+  color: #2b4055;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea,
+.answer-row input {
+  border: 1px solid #cbd5df;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 10px 12px;
+}
+
+.admin-form textarea {
+  min-height: 88px;
+}
+
+.admin-actions,
+.actions {
+  gap: 8px;
+}
+
+.step,
+.formula {
+  border-color: #e3e9ef;
+  border-radius: 10px;
+  background: #fafbfd;
+}
+
+.math {
+  border: 1px solid #e4eaf0;
+  background: #f3f6f9;
+}
+
+.feedback,
+.hint {
+  border-radius: 10px;
+}
+
+details {
+  border-color: #e1e7ed;
+  background: #fafbfd;
+}
+
+footer {
+  background: #173b5f;
+  box-shadow: none;
+}
+
+#admin > .panel {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 34px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px #1837570d;
+}
+
+#admin > .panel > h2 {
+  margin-bottom: 4px;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+}
+
+#dataStatus,
+#adminStatus {
+  margin: 8px 0 22px;
+  padding: 10px 12px;
+  border: 1px solid #e4ebf2;
+  border-radius: 9px;
+  background: #f7f9fb;
+  color: #52657a;
+}
+
+#adminStatus:empty {
+  display: none;
+}
+
+#dataStatus.incorrect,
+#adminStatus.incorrect {
+  border-color: #f0d2c6;
+  background: #fff5f0;
+  color: #8d4325;
+}
+
+#loginForm {
+  max-width: 520px;
+  gap: 16px;
+}
+
+#loginForm .admin-actions {
+  margin-top: 2px;
+}
+
+#adminTools > #emptyTableTools,
+#adminTools > #versionUpdateTools {
+  margin: 18px 0;
+  padding: 18px;
+  border: 1px solid #dce8f2;
+  border-radius: 12px;
+  background: #f5f9fc;
+}
+
+#emptyTableTools p,
+#versionUpdateTools p {
+  margin: 0 0 12px;
+}
+
+#versionUpdateTools {
+  border-color: #f0dfb6 !important;
+  background: #fffaf0 !important;
+}
+
+#questionForm {
+  max-width: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 18px;
+  row-gap: 16px;
+  margin-top: 20px;
+}
+
+#questionForm label[for="questionSelect"],
+#questionForm #slotMeta,
+#questionForm label[for="editQuestion"],
+#questionForm label[for="editSolution"],
+#questionForm .admin-actions {
+  grid-column: 1 / -1;
+}
+
+#slotMeta {
+  margin: -8px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f3f6f9;
+}
+
+#questionForm label {
+  align-content: start;
+}
+
+#questionForm label[for="editQuestion"] textarea {
+  min-height: 112px;
+}
+
+#questionForm label[for="editAnswers"] textarea,
+#questionForm label[for="editHint"] textarea {
+  min-height: 132px;
+}
+
+#questionForm label[for="editSolution"] textarea {
+  min-height: 150px;
+}
+
+#questionForm .admin-actions {
+  margin-top: 2px;
+  padding-top: 16px;
+  border-top: 1px solid #e8edf2;
+}
+
+#sharePanel {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.share-layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 5vw, 40px);
+  margin-top: 22px;
+}
+
+#qrFrame {
+  display: grid;
+  min-width: 252px;
+  min-height: 252px;
+  place-items: center;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: white;
+}
+
+#qrCode canvas,
+#qrCode img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#qrPlaceholder {
+  margin: 0;
+  text-align: center;
+}
+
+.share-details {
+  min-width: 0;
+}
+
+.share-details label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: 700;
+}
+
+#shareUrl {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5df;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #344d66;
+  font: inherit;
+}
+
+#qrStatus {
+  min-height: 48px;
+  margin: 0;
+  color: #52657a;
+}
+
+#copyShareLink {
+  margin-top: 0;
+}
+
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  header {
+    padding: 58px 16px 20px;
+  }
+
+  .qr-settings {
+    top: 60px;
+    right: 12px;
+  }
+
+  .nav button {
+    flex: 1 1 135px;
+  }
+
+  .board {
+    gap: 7px;
+  }
+
+  .category {
+    min-height: 58px;
+    padding: 10px 6px;
+    font-size: .85rem;
+  }
+
+  .tile {
+    min-height: 54px;
+    font-size: 1.15rem;
+  }
+
+  #admin > .panel {
+    padding: 18px;
+  }
+
+  #questionForm {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  #questionForm label,
+  #questionForm #slotMeta,
+  #questionForm .admin-actions {
+    grid-column: 1;
+  }
+
+  .share-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .share-details {
+    width: 100%;
+  }
+
+  #qrFrame {
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav button,
+  .primary,
+  .secondary,
+  .tile {
+    transition: none;
+  }
+}
 </style></head><body>
-<header><button class="admin-settings" type="button" onclick="showTab('admin')" aria-label="Admin editor" title="Admin editor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94a7.9 7.9 0 0 0 .06-.94 7.9 7.9 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.3 7.3 0 0 0-1.63-.94l-.36-2.54A.49.49 0 0 0 13.89 2h-3.78a.49.49 0 0 0-.49.42L9.26 4.96a7.3 7.3 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58a7.9 7.9 0 0 0-.06.94c0 .32.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.12.21.37.3.61.22l2.39-.96c.5.39 1.05.71 1.63.94l.36 2.54c.04.24.25.42.49.42h3.78c.24 0 .45-.18.49-.42l.36-2.54a7.3 7.3 0 0 0 1.63-.94l2.39.96c.24.09.49 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg></button><h1>🎯 MATH JEOPARDY!</h1><p>Sequences, Series, and Financial Applications | Grade 11 General Mathematics</p><p><strong>Understand • Choose • Solve • Explain</strong></p><div class="nav"><button onclick="showTab('learn')">Learn First</button><button onclick="showTab('game')">Play Jeopardy</button><button onclick="showTab('assessment')">Exit Ticket</button><button onclick="showTab('guide')">Teacher Guide</button><button onclick="resetGame()">Restart Game</button></div></header>
+<header><button class="admin-settings" type="button" onclick="showTab('admin')" aria-label="Admin editor" title="Admin editor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94a7.9 7.9 0 0 0 .06-.94 7.9 7.9 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.3 7.3 0 0 0-1.63-.94l-.36-2.54A.49.49 0 0 0 13.89 2h-3.78a.49.49 0 0 0-.49.42L9.26 4.96a7.3 7.3 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58a7.9 7.9 0 0 0-.06.94c0 .32.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.12.21.37.3.61.22l2.39-.96c.5.39 1.05.71 1.63.94l.36 2.54c.04.24.25.42.49.42h3.78c.24 0 .45-.18.49-.42l.36-2.54a7.3 7.3 0 0 0 1.63-.94l2.39.96c.24.09.49 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg></button><h1>🎯 MATH JEOPARDY!</h1><p>Sequences, Series, and Financial Applications | Grade 11 General Mathematics</p><p><strong>Understand • Choose • Solve • Explain</strong></p><div class="nav"><button onclick="showTab('learn')">Learn First</button><button onclick="showTab('game')">Play Jeopardy</button><button onclick="showTab('assessment')">Exit Ticket</button><button onclick="showTab('guide')">Teacher Guide</button><button onclick="showTab('share')">Share QR Code</button><button onclick="resetGame()">Restart Game</button></div></header>
+<button class="qr-settings" type="button" onclick="showTab('share')" aria-label="Share QR code" title="Share QR code"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v5h-3v-2h-2v-3h2zm-5 5h3v3h-3v-3zm5 2h3v1h-3v-1z"/></svg></button>
 <main>
 <section id="admin" class="hidden">
 <div class="panel"><h2>Admin Editor</h2><p id="dataStatus" class="small" role="status">Connecting to Supabase...</p>
@@ -541,6 +1092,25 @@ footer {
 </ol><p class="small">Teacher note: use the calculator for this example and explain that the interest rate and payment period must use the same time unit.</p></div>
 <div class="actions"><button class="primary" onclick="showTab('game')">I’m ready to play</button></div>
 </section>
+<section id="share" class="hidden">
+<div id="sharePanel" class="panel">
+<h2>Share Math Jeopardy</h2>
+<p>Scan this QR code with a phone or tablet camera to open the game.</p>
+<div class="share-layout">
+<div id="qrFrame"><div id="qrCode" aria-label="QR code for this game"></div><p id="qrPlaceholder" class="small">The QR code will appear here after deployment.</p></div>
+<div class="share-details">
+<p id="qrStatus" role="status" aria-live="polite">Preparing your share link...</p>
+<label for="shareUrl">Game link</label>
+<input id="shareUrl" type="text" readonly>
+<div class="share-actions">
+<button id="copyShareLink" class="primary" type="button" onclick="copyShareLink()">Copy link</button>
+<button id="downloadShareQRCode" class="secondary" type="button" onclick="downloadShareQRCode()">Download QR</button>
+</div>
+<p class="small">For other people to open the game, deploy it to a public website first. A link to a local file or localhost only works on your device.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="game" class="hidden">
 <div class="panel instructions"><h2>How to Play</h2><ol><li>Choose a category and point value. Questions progress from easier identification to more complex applications.</li><li>Before calculating, state the given information and what is being asked.</li><li>Write your solution on paper, explain orally to your partner, or type your reasoning in the notes box.</li><li>Use the hint if needed. Reveal the worked solution to review each step.</li><li>The teacher awards full or partial credit based on the answer and reasoning.</li></ol><p class="small">No audio or internet is required after saving this file. You may use the formula sheet and calculator if your teacher permits.</p></div>
 <div class="panel scorebar"><span>Score: <strong id="score">0</strong> points</span><span>Questions reviewed: <strong id="done">0</strong> / 25</span><span id="progressText">Choose a question to begin.</span></div>
@@ -590,7 +1160,13 @@ footer {
 </section>
 <footer>With clear steps, formula support, and flexible ways to participate, every learner has a better chance to understand and explain their mathematical thinking.</footer>
 </main>
+<dialog id="saveSuccessDialog" aria-labelledby="saveSuccessTitle" aria-describedby="saveSuccessMessage">
+<h2 id="saveSuccessTitle">Question successfully edited!</h2>
+<p id="saveSuccessMessage">Your changes have been saved and are now live.</p>
+<form method="dialog"><button class="primary">Close</button></form>
+</dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const SUPABASE_URL='https://mumriqkxtuzonqahanok.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_b2FCsWqVSz-Y6_DAqF4vdw_TgyC-BGh';
@@ -636,7 +1212,10 @@ let data=[
 ];
 let score=0,done=new Set(),current=null,answered=false;
 let supabaseClient=null,cloudQuestions=[],adminUser=null,cloudNeedsUpgrade=false;
-function showTab(tab){for(const id of ['learn','game','assessment','guide','admin'])document.getElementById(id).classList.toggle('hidden',id!==tab);window.scrollTo(0,0)}
+function showTab(tab){for(const id of ['learn','game','assessment','guide','admin','share'])document.getElementById(id).classList.toggle('hidden',id!==tab);window.scrollTo(0,0)}
+function initializeShareQRCode(){const url=window.location.protocol==='file:'?'':window.location.origin+window.location.pathname,shareUrl=document.getElementById('shareUrl'),qrStatus=document.getElementById('qrStatus'),copyButton=document.getElementById('copyShareLink'),downloadButton=document.getElementById('downloadShareQRCode'),qrPlaceholder=document.getElementById('qrPlaceholder'),host=window.location.hostname;shareUrl.value=url;const isLocal=window.location.protocol==='file:'||host==='localhost'||host==='127.0.0.1'||host==='::1'||host.endsWith('.localhost');if(isLocal){qrStatus.textContent='Deploy the game to a public website, then open its public link here to create a QR code others can scan.';copyButton.disabled=true;downloadButton.disabled=true;return}if(!window.QRCode){qrStatus.textContent='The QR code library could not load. Check your internet connection and reload the page.';qrPlaceholder.textContent='QR code could not be loaded.';copyButton.disabled=true;downloadButton.disabled=true;return}try{new QRCode(document.getElementById('qrCode'),{text:url,width:220,height:220,colorDark:'#173b5f',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});qrPlaceholder.classList.add('hidden');qrStatus.textContent='Scan the code with a phone or tablet camera to open this game.'}catch(error){qrStatus.textContent='Could not create the QR code: '+error.message;qrPlaceholder.textContent='QR code could not be created.';copyButton.disabled=true;downloadButton.disabled=true}}
+async function copyShareLink(){const button=document.getElementById('copyShareLink'),status=document.getElementById('qrStatus');try{await navigator.clipboard.writeText(document.getElementById('shareUrl').value);status.textContent='Game link copied to clipboard.'}catch(error){status.textContent='Could not copy the link. Select the address above and copy it manually.';console.error('Could not copy the game link:',error);return}button.textContent='Copied!';window.setTimeout(()=>{button.textContent='Copy link'},1800)}
+function downloadShareQRCode(){const canvas=document.querySelector('#qrCode canvas'),status=document.getElementById('qrStatus');if(!canvas){status.textContent='The QR code is not available to download yet.';return}try{const link=document.createElement('a');link.href=canvas.toDataURL('image/png');link.download='math-jeopardy-qr.png';link.click()}catch(error){status.textContent='Could not download the QR code: '+error.message;console.error('Could not download the QR code:',error)}}
 function pointValue(c,r){return data[c][r].pointValue??((r+1)*100)}
 function buildBoard(){const board=document.getElementById('board');board.innerHTML='';categories.forEach(cat=>{const el=document.createElement('div');el.className='category';el.textContent=cat;board.appendChild(el)});for(let r=0;r<5;r++)for(let c=0;c<5;c++){const id=c+'-'+r,item=data[c][r],value=pointValue(c,r),b=document.createElement('button');b.className='tile';b.textContent=value;b.setAttribute('aria-label',categories[c]+', '+value+' points');b.disabled=done.has(id);b.onclick=()=>openQuestion(c,r,id);board.appendChild(b)}}
 function openQuestion(c,r,id){current={c,r,id};answered=false;const item=data[c][r],value=pointValue(c,r);document.getElementById('qMeta').textContent=categories[c]+' • '+value+' points';document.getElementById('qText').textContent=item.q;document.getElementById('qHint').textContent='Hint: '+item.h;for(const field of ['givenInput','askedInput','formulaInput','workInput','answerInput'])document.getElementById(field).value='';document.getElementById('feedback').className='feedback hidden';document.getElementById('questionPanel').classList.remove('hidden');document.getElementById('board').classList.add('hidden');document.getElementById('answerInput').focus()}
@@ -656,7 +1235,7 @@ function updateAdminUI(session){adminUser=session?.user??null;const isAdmin=ADMI
 async function signOutAdmin(){if(!supabaseClient)return;const {error}=await supabaseClient.auth.signOut();if(error){setStatus('adminStatus','Sign out failed: '+error.message,true);return}adminUser=null;document.getElementById('adminTools').classList.add('hidden');document.getElementById('loginForm').classList.remove('hidden');setStatus('dataStatus','Signed out. Questions remain available to play.')}
 async function seedDefaultQuestions(){if(!supabaseClient||!ADMIN_USER_IDS.has(adminUser?.id))return;const rows=[];for(let c=0;c<categories.length;c++)for(let r=0;r<5;r++){const item=data[c][r];rows.push({category:categories[c],point_value:(r+1)*100,sort_order:r+1,question:item.q,accepted_answers:item.a,solution:item.s,hint:item.h})}setStatus('adminStatus','Publishing the current questions...');const {error}=await supabaseClient.from('questions').insert(rows);if(error){setStatus('adminStatus','Could not publish questions: '+error.message,true);return}try{await loadCloudQuestions();setStatus('adminStatus','All 25 questions are now in Supabase. Select a question to edit it.')}catch(error){setStatus('adminStatus','Questions were saved, but could not be reloaded: '+error.message,true)}}
 async function replaceWithImprovedQuestions(){if(!supabaseClient||!ADMIN_USER_IDS.has(adminUser?.id))return;if(!window.confirm('This replaces all 25 questions currently stored in Supabase with the improved question set. Any online edits to the old questions will be lost. Continue?'))return;setStatus('adminStatus','Replacing the Supabase questions...');const {error:deleteError}=await supabaseClient.from('questions').delete().gt('id',0);if(deleteError){setStatus('adminStatus','Could not replace the questions: '+deleteError.message,true);return}cloudQuestions=[];cloudNeedsUpgrade=false;const rows=[];for(let c=0;c<categories.length;c++)for(let r=0;r<5;r++){const item=data[c][r];rows.push({category:categories[c],point_value:(r+1)*100,sort_order:r+1,question:item.q,accepted_answers:item.a,solution:item.s,hint:item.h})}const {error:insertError}=await supabaseClient.from('questions').insert(rows);if(insertError){setStatus('adminStatus','The old questions were removed, but the improved set could not be inserted: '+insertError.message,true);return}try{await loadCloudQuestions();setStatus('adminStatus','The improved 25-question set is live in Supabase. You can edit any slot below.')}catch(error){setStatus('adminStatus','The new questions were saved, but could not be reloaded: '+error.message,true)}}
-async function saveQuestion(event){event.preventDefault();const row=cloudQuestions.find(item=>String(item.id)===document.getElementById('questionSelect').value);if(!row)return;const answers=document.getElementById('editAnswers').value.split('\n').map(answer=>answer.trim()).filter(Boolean);if(!answers.length){setStatus('adminStatus','Enter at least one accepted answer.',true);return}const changes={question:document.getElementById('editQuestion').value.trim(),accepted_answers:answers,hint:document.getElementById('editHint').value.trim(),solution:document.getElementById('editSolution').value.trim()};setStatus('adminStatus','Replacing the selected question...');const {error}=await supabaseClient.from('questions').update(changes).eq('id',row.id);if(error){setStatus('adminStatus','Could not replace the question: '+error.message,true);return}try{await loadCloudQuestions();document.getElementById('questionSelect').value=String(row.id);loadEditorQuestion();setStatus('adminStatus','Question replaced. The updated content is now live in the same category and point slot.')}catch(error){setStatus('adminStatus','The question was replaced, but the questions could not be reloaded: '+error.message,true)}}
+async function saveQuestion(event){event.preventDefault();const row=cloudQuestions.find(item=>String(item.id)===document.getElementById('questionSelect').value);if(!row)return;const answers=document.getElementById('editAnswers').value.split('\n').map(answer=>answer.trim()).filter(Boolean);if(!answers.length){setStatus('adminStatus','Enter at least one accepted answer.',true);return}const changes={question:document.getElementById('editQuestion').value.trim(),accepted_answers:answers,hint:document.getElementById('editHint').value.trim(),solution:document.getElementById('editSolution').value.trim()};setStatus('adminStatus','Replacing the selected question...');const {error}=await supabaseClient.from('questions').update(changes).eq('id',row.id);if(error){setStatus('adminStatus','Could not replace the question: '+error.message,true);return}try{await loadCloudQuestions();document.getElementById('questionSelect').value=String(row.id);loadEditorQuestion();setStatus('adminStatus','');document.getElementById('saveSuccessDialog').showModal()}catch(error){setStatus('adminStatus','The question was replaced, but the questions could not be reloaded: '+error.message,true)}}
 async function initializeSupabase(){const loginForm=document.getElementById('loginForm');if(!SUPABASE_PUBLISHABLE_KEY||SUPABASE_PUBLISHABLE_KEY==='PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE'){loginForm.classList.add('hidden');setStatus('dataStatus','Add your Supabase publishable key in the configuration near the top of the script to enable online questions and admin sign-in. The built-in game still works.');buildBoard();return}if(!window.supabase?.createClient){loginForm.classList.add('hidden');setStatus('dataStatus','The Supabase client library did not load. Check your internet connection and reload the page.',true);buildBoard();return}supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);supabaseClient.auth.onAuthStateChange((_event,session)=>updateAdminUI(session));try{const {data:sessionData,error}=await supabaseClient.auth.getSession();if(error)throw error;updateAdminUI(sessionData.session);await loadCloudQuestions()}catch(error){setStatus('dataStatus','Could not connect to Supabase: '+error.message,true);buildBoard()}}
 document.getElementById('loginForm').addEventListener('submit',async event=>{event.preventDefault();if(!supabaseClient)return;const {error}=await supabaseClient.auth.signInWithPassword({email:document.getElementById('adminEmail').value,password:document.getElementById('adminPassword').value});if(error)setStatus('dataStatus','Sign-in failed: '+error.message,true);else{document.getElementById('adminPassword').value='';setStatus('dataStatus','Signed in. Checking admin access...')}});
 document.getElementById('questionSelect').addEventListener('change',loadEditorQuestion);
@@ -664,4 +1243,5 @@ document.getElementById('questionForm').addEventListener('submit',saveQuestion);
 buildBoard();
 initializeSupabase();
 buildBoard();
+initializeShareQRCode();
 </script></body></html>
