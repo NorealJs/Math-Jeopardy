@@ -71,19 +71,34 @@
 </div>
 </section>
 <section id="game" class="hidden">
-<div class="panel instructions"><h2>How to Play</h2><ol><li>Choose a category and point value. Questions progress from easier identification to more complex applications.</li><li>Before calculating, state the given information and what is being asked.</li><li>Write your solution on paper, explain orally to your partner, or type your reasoning in the notes box.</li><li>Use the hint if needed. Reveal the worked solution to review each step.</li><li>The teacher awards full or partial credit based on the answer and reasoning.</li></ol><p class="small">No audio or internet is required after saving this file. You may use the formula sheet and calculator if your teacher permits.</p></div>
-<div class="panel scorebar"><span>Score: <strong id="score">0</strong> points</span><span>Questions reviewed: <strong id="done">0</strong> / 25</span><span id="progressText">Choose a question to begin.</span></div>
-<div id="board" class="board" aria-label="Jeopardy question board"></div>
-<div id="questionPanel" class="panel question hidden" aria-live="polite"><p id="qMeta" class="small"></p><p id="qText" class="qtext"></p><p id="qHint" class="hint"></p>
-<label for="givenInput">Step 1 — What is given?</label><textarea id="givenInput" placeholder="List the known values and units (optional)"></textarea>
-<label for="askedInput">Step 2 — What is asked?</label><input id="askedInput" placeholder="State what you need to find (optional)">
-<label for="formulaInput">Step 3 — Formula and why it fits</label><textarea id="formulaInput" placeholder="Write the formula or explain your choice (optional)"></textarea>
-<label for="workInput">Step 4 — Substitution and calculations</label><textarea id="workInput" placeholder="Show your working (optional)"></textarea>
-<label for="answerInput">Step 5 — Final answer (or short explanation)</label><input id="answerInput" placeholder="Type the answer here">
-<p class="small">You can also answer aloud or on paper. The typed answer checker is a support, not the final judge of mathematical reasoning.</p>
-<div class="actions"><button class="primary" onclick="checkAnswer()">Check answer</button><button class="secondary" onclick="showSolution()">Show worked solution</button><button class="secondary" onclick="backToBoard()">Back to board</button></div>
-<div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div></div>
-<div class="panel"><strong>Scoring:</strong> Correct typed answers earn the tile value. For oral or written responses, the teacher may award partial credit for correct given information, formula choice, setup, calculations, or reasoning even if the final answer is not correct.</div>
+<div class="game-intro panel">
+<div class="game-intro-copy"><p class="game-eyebrow">Math Jeopardy</p><h2>Choose a challenge</h2><p>Pick a category and point value, then work through the problem one step at a time.</p></div>
+<details class="game-instructions"><summary>How to play</summary><ol><li>Choose a category and point value. Questions progress from easier identification to more complex applications.</li><li>Identify what is given and what you need to find before choosing a formula.</li><li>Work on paper, explain your reasoning aloud, or use the optional notes below.</li><li>Use the hint if needed, then reveal the worked solution to review each step.</li><li>Your teacher may award partial credit for sound reasoning, even if the final answer is not correct.</li></ol><p class="small">You may use the formula sheet and a calculator if your teacher permits. The game does not require audio or an internet connection.</p></details>
+</div>
+<div class="panel scorebar" aria-label="Game progress">
+<span class="game-stat"><span class="game-stat-label">Score</span><span class="game-stat-value"><strong id="score">0</strong><span>points</span></span></span>
+<span class="game-stat"><span class="game-stat-label">Questions reviewed</span><span class="game-stat-value"><strong id="done">0</strong><span>/ 25</span></span></span>
+<p id="progressText" role="status" aria-live="polite">Choose a question to begin.</p>
+</div>
+<div class="game-board-section">
+<div class="game-section-heading"><div><p class="game-eyebrow">The board</p><h2>Choose your question</h2></div><p>Select any available tile to begin.<span class="mobile-board-hint"> Swipe sideways to browse all five categories.</span></p></div>
+<div id="board" class="board" role="group" aria-label="Jeopardy question board"></div>
+</div>
+<div id="questionPanel" class="panel question hidden" aria-live="polite">
+<div class="question-heading"><p id="qMeta" class="question-meta"></p><h2 id="qText" class="qtext"></h2></div>
+<p id="qHint" class="hint"></p>
+<div class="question-steps" aria-label="Problem-solving steps">
+<label class="question-field" for="givenInput"><span class="question-field-title"><span class="question-step-number">1</span>What is given?</span><textarea class="question-control" id="givenInput" rows="3" placeholder="List known values, units, rates, and time (optional)"></textarea></label>
+<label class="question-field" for="askedInput"><span class="question-field-title"><span class="question-step-number">2</span>What is asked?</span><input class="question-control" id="askedInput" placeholder="State what you need to find (optional)"></label>
+<label class="question-field" for="formulaInput"><span class="question-field-title"><span class="question-step-number">3</span>Formula and why it fits</span><textarea class="question-control" id="formulaInput" rows="3" placeholder="Write the formula or explain your choice (optional)"></textarea></label>
+<label class="question-field" for="workInput"><span class="question-field-title"><span class="question-step-number">4</span>Substitution and calculations</span><textarea class="question-control" id="workInput" rows="3" placeholder="Show your working (optional)"></textarea></label>
+<label class="question-field question-field-answer" for="answerInput"><span class="question-field-title"><span class="question-step-number">5</span>Final answer or short explanation</span><input class="question-control" id="answerInput" placeholder="Type your answer here"></label>
+</div>
+<p class="small question-note">You can also answer aloud or on paper. The typed answer checker is a support, not the final judge of mathematical reasoning.</p>
+<div class="actions question-actions"><button class="primary" type="button" onclick="checkAnswer()">Check answer</button><button class="secondary" type="button" onclick="showSolution()">Show worked solution</button><button class="secondary" type="button" onclick="backToBoard()">Back to board</button></div>
+<div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+</div>
+<div class="panel game-scoring-note"><strong>Scoring:</strong> Correct typed answers earn the tile value. For oral or written responses, your teacher may award partial credit for identifying the given information, choosing a formula, setting up the calculation, or explaining your reasoning.</div>
 </section>
 <section id="assessment" class="hidden">
 <div class="panel"><h2>Exit Ticket — Individual Check</h2><p>Complete these independently after the game. Show your steps. Use the five-step guide if your teacher allows it.</p><ol>
