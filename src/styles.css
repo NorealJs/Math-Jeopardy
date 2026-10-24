@@ -1984,10 +1984,30 @@ textarea.question-control {
   text-shadow: none;
 }
 
-.app-main > .app-header .header-title p {
-  margin: 2px 0 0;
+.header-subtitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 10px;
+  margin-top: 2px;
+}
+
+.app-main > .app-header .header-subtitle p {
+  margin: 0;
   color: #697b8e;
   font-size: .82rem;
+}
+
+.header-grade {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 10px;
+  border-left: 1px solid #d6e0e9;
+  color: #50657b;
+  font-size: .78rem;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .app-main > .app-header .header-tools {
@@ -2128,12 +2148,24 @@ textarea.question-control {
     font-size: .98rem;
   }
 
-  .app-main > .app-header .header-title p {
+  .app-main > .app-header .header-subtitle p {
     max-width: 34ch;
     overflow: hidden;
     font-size: .72rem;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .header-subtitle {
+    flex-wrap: nowrap;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .header-grade {
+    flex: 0 0 auto;
+    padding-left: 7px;
+    font-size: .68rem;
   }
 
   .app-main > .app-header .header-tools {
@@ -2157,8 +2189,13 @@ textarea.question-control {
     padding-left: 8px;
   }
 
-  .app-main > .app-header .header-title p {
+  .app-main > .app-header .header-subtitle p {
     display: none;
+  }
+
+  .header-grade {
+    padding-left: 0;
+    border-left: 0;
   }
 }
 

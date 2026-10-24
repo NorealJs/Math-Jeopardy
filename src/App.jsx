@@ -175,7 +175,10 @@ function App() {
             </button>
             <div className="header-title">
               <h1>🎯 MATH JEOPARDY!</h1>
-              <p>Sequences, Series, and Financial Applications</p>
+              <div className="header-subtitle">
+                <p>Sequences, Series, and Financial Applications</p>
+                <span className="header-grade">Grade 11 <span aria-hidden="true">•</span> Gen Math</span>
+              </div>
             </div>
             <div className="header-tools">
               <button className="icon-button" type="button" onClick={() => navigate('admin')} aria-label="Admin editor" title="Admin editor">
