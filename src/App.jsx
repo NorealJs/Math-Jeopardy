@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import legacyMarkup from './legacy-content.html?raw';
 
 const tabs = [
@@ -30,13 +30,43 @@ function QrIcon() {
   );
 }
 
+function MenuIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+    </svg>
+  );
+}
+
+function NavigationIcon({ name }) {
+  const paths = {
+    learn: 'M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5zm2.5-.5a.5.5 0 0 0-.5.5v11.6c.16-.06.33-.1.5-.1H18V4zM2 5h2v16H2z',
+    visual: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm-2.5 3.5v9l7-4.5z',
+    game: 'M4 4h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-5l-3 3-3-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v11h5.83L12 19.17 14.17 17H20V6zm3 3h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z',
+    assessment: 'M9 16.17 4.83 12 3.4 13.41 9 19l12-12-1.41-1.41z',
+    guide: 'M4 3h7a4 4 0 0 1 4 4v14a4 4 0 0 0-4-4H4zm16 0h-3v2h3v12h-3a6 6 0 0 0-4 1.53V7a2 2 0 0 1 2-2h5z',
+    restart: 'M12 4V1L8 5l4 4V6a6 6 0 1 1-5.65 8H4.26A8 8 0 1 0 12 4Z'
+  };
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d={paths[name]} />
+    </svg>
+  );
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState('learn');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [legacyError, setLegacyError] = useState('');
+  const menuToggleRef = useRef(null);
+  const mobileNavWasOpen = useRef(false);
 
   useEffect(() => {
     const onNavigate = (event) => {
       setActiveTab(event.detail);
+      setMobileNavOpen(false);
       window.scrollTo(0, 0);
     };
     window.addEventListener('math-jeopardy:navigate', onNavigate);
@@ -53,8 +83,29 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (mobileNavOpen) {
+      document.querySelector('#main-navigation button')?.focus();
+    } else if (mobileNavWasOpen.current) {
+      menuToggleRef.current?.focus();
+    }
+    mobileNavWasOpen.current = mobileNavOpen;
+  }, [mobileNavOpen]);
+
+  useEffect(() => {
+    if (!mobileNavOpen) return undefined;
+
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') setMobileNavOpen(false);
+    }
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [mobileNavOpen]);
+
   function navigate(tab) {
     setActiveTab(tab);
+    setMobileNavOpen(false);
     window.scrollTo(0, 0);
   }
 
@@ -68,28 +119,76 @@ function App() {
 
   return (
     <>
-      <header className="app-header">
-        <div className="header-tools">
-          <button className="icon-button" type="button" onClick={() => navigate('admin')} aria-label="Admin editor" title="Admin editor">
-            <SettingsIcon />
-          </button>
-          <button className="icon-button" type="button" onClick={() => navigate('share')} aria-label="Share QR code" title="Share QR code">
-            <QrIcon />
-          </button>
-        </div>
-        <h1>🎯 MATH JEOPARDY!</h1>
-        <p>Sequences, Series, and Financial Applications | Grade 11 General Mathematics</p>
-        <p><strong>Understand • Choose • Solve • Explain</strong></p>
-        <nav className="nav" aria-label="Main navigation">
-          {tabs.map(([id, label]) => (
-            <button key={id} type="button" onClick={() => navigate(id)} aria-current={activeTab === id ? 'page' : undefined}>
-              {label}
+      <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${mobileNavOpen ? ' mobile-nav-open' : ''}`}>
+        <aside className="app-sidebar" aria-label="Site navigation">
+          <div className="sidebar-brand">
+            <span className="brand-mark" aria-hidden="true">🎯</span>
+            <span className="brand-name">Math Jeopardy</span>
+          </div>
+          <p className="sidebar-caption">Learning menu</p>
+          <nav id="main-navigation" className="nav" aria-label="Main navigation">
+            {tabs.map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                className="nav-item"
+                onClick={() => navigate(id)}
+                aria-current={activeTab === id ? 'page' : undefined}
+                aria-label={label}
+                title={sidebarCollapsed ? label : undefined}
+              >
+                <NavigationIcon name={id} />
+                <span className="nav-label">{label}</span>
+              </button>
+            ))}
+          </nav>
+          <div className="sidebar-footer">
+            <div className="sidebar-footer-caption">Game controls</div>
+            <button className="nav-item restart-button" type="button" onClick={restartGame} aria-label="Restart Game" title={sidebarCollapsed ? 'Restart Game' : undefined}>
+              <NavigationIcon name="restart" />
+              <span className="nav-label">Restart Game</span>
             </button>
-          ))}
-          <button type="button" onClick={restartGame} className="restart-button">Restart Game</button>
-        </nav>
-      </header>
-      <main className="app-content" data-active-tab={activeTab} dangerouslySetInnerHTML={{ __html: contentMarkup }} />
+            <p className="sidebar-subject">Grade 11 · General Mathematics</p>
+          </div>
+        </aside>
+        {mobileNavOpen && (
+          <button className="sidebar-backdrop" type="button" aria-label="Close navigation menu" onClick={() => setMobileNavOpen(false)} />
+        )}
+        <div className="app-main">
+          <header className="app-header">
+            <button
+              ref={menuToggleRef}
+              className="menu-toggle"
+              type="button"
+              aria-label={mobileNavOpen ? 'Close navigation menu' : sidebarCollapsed ? 'Expand navigation sidebar' : 'Collapse navigation sidebar'}
+              aria-expanded={window.matchMedia('(max-width: 760px)').matches ? mobileNavOpen : !sidebarCollapsed}
+              aria-controls="main-navigation"
+              onClick={() => {
+                if (window.matchMedia('(max-width: 760px)').matches) {
+                  setMobileNavOpen((open) => !open);
+                } else {
+                  setSidebarCollapsed((collapsed) => !collapsed);
+                }
+              }}
+            >
+              <MenuIcon />
+            </button>
+            <div className="header-title">
+              <h1>🎯 MATH JEOPARDY!</h1>
+              <p>Sequences, Series, and Financial Applications</p>
+            </div>
+            <div className="header-tools">
+              <button className="icon-button" type="button" onClick={() => navigate('admin')} aria-label="Admin editor" title="Admin editor">
+                <SettingsIcon />
+              </button>
+              <button className="icon-button" type="button" onClick={() => navigate('share')} aria-label="Share QR code" title="Share QR code">
+                <QrIcon />
+              </button>
+            </div>
+          </header>
+          <main className="app-content" data-active-tab={activeTab} dangerouslySetInnerHTML={{ __html: contentMarkup }} />
+        </div>
+      </div>
       <dialog id="saveSuccessDialog" aria-labelledby="saveSuccessTitle" aria-describedby="saveSuccessMessage">
         <h2 id="saveSuccessTitle">Question successfully edited!</h2>
         <p id="saveSuccessMessage">Your changes have been saved and are now live.</p>
