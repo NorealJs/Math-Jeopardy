@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import legacyMarkup from './legacy-content.html?raw';
+import { normalizeAnswer } from './game-logic.js';
+import qrCodeScriptUrl from 'qrcodejs/qrcode.min.js?url';
 
 const tabs = [
   ['learn', 'Learn First'],
@@ -86,15 +88,37 @@ function App() {
     };
     window.addEventListener('math-jeopardy:navigate', onNavigate);
 
+    const previousNormalizeAnswer = window.mathJeopardyNormalizeAnswer;
+    window.mathJeopardyNormalizeAnswer = normalizeAnswer;
+
+    let isActive = true;
     const script = document.createElement('script');
     script.src = `${import.meta.env.BASE_URL}legacy.js`;
     script.onload = () => setLegacyError('');
     script.onerror = () => setLegacyError('The game could not be initialized. Reload the page and try again.');
-    document.body.appendChild(script);
+
+    const qrCodeScript = document.createElement('script');
+    qrCodeScript.src = qrCodeScriptUrl;
+    qrCodeScript.onload = () => {
+      if (isActive) document.body.appendChild(script);
+    };
+    qrCodeScript.onerror = () => {
+      if (isActive) document.body.appendChild(script);
+    };
+    document.body.appendChild(qrCodeScript);
 
     return () => {
+      isActive = false;
       window.removeEventListener('math-jeopardy:navigate', onNavigate);
       script.remove();
+      qrCodeScript.remove();
+      if (window.mathJeopardyNormalizeAnswer === normalizeAnswer) {
+        if (previousNormalizeAnswer === undefined) {
+          delete window.mathJeopardyNormalizeAnswer;
+        } else {
+          window.mathJeopardyNormalizeAnswer = previousNormalizeAnswer;
+        }
+      }
     };
   }, []);
 
