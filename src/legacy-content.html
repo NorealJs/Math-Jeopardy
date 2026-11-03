@@ -21,7 +21,11 @@
 </div></div>
 </section>
 <section id="learn">
-<div class="panel instructions"><h2>Start Here: How to Solve a Word Problem</h2><p>Do not rush to choose a formula. Read the problem, identify what the question asks, and explain why your formula fits. You may write your work on paper, talk it through with a partner, or type notes below.</p>
+<div class="learning-welcome panel">
+<div><p class="learning-eyebrow">Grade 11 · General Mathematics</p><h2>Build confidence, one step at a time.</h2><p>Review a simple problem-solving method, find the formula you need, and follow worked examples at your own pace.</p></div>
+<a class="primary welcome-action" href="#problem-solving-guide">Start learning <span aria-hidden="true">↓</span></a>
+</div>
+<div id="problem-solving-guide" class="panel instructions"><h2>Start Here: How to Solve a Word Problem</h2><p>Do not rush to choose a formula. Read the problem, identify what the question asks, and explain why your formula fits. You may write your work on paper, talk it through with a partner, or type notes below.</p>
 <div class="steps">
 <div class="step"><strong>1. GIVEN</strong>List the important information, numbers, units, rate, and time.</div>
 <div class="step"><strong>2. ASKED</strong>State exactly what you need to find: one term, a total, accumulated value, or payment.</div>
@@ -30,21 +34,24 @@
 <div class="step"><strong>5. ANSWER + CHECK</strong>Include units, interpret the result, and check if it is reasonable.</div>
 </div></div>
 <div class="panel"><h2>Formula Sheet</h2><p class="small">Use this as a learning support. In a class assessment, your teacher will tell you whether it may be used.</p>
-<div class="formulas">
+<div class="formula-groups">
+<section class="formula-group" aria-labelledby="sequence-formulas-title"><h3 id="sequence-formulas-title">Sequences &amp; series</h3><div class="formulas">
 <div class="formula"><h3>Arithmetic sequence: one term</h3><p class="math">aₙ = a₁ + (n − 1)d</p><p>Use when the amount changes by the same difference each period. Find one particular term, not the total.</p></div>
 <div class="formula"><h3>Arithmetic series: total</h3><p class="math">Sₙ = n/2 [2a₁ + (n − 1)d]</p><p>Or <span class="math">Sₙ = n/2 (a₁ + aₙ)</span>. Use when adding the first n terms of an arithmetic sequence.</p></div>
 <div class="formula"><h3>Geometric sequence: one term</h3><p class="math">aₙ = a₁rⁿ⁻¹</p><p>Use when each term is multiplied by the same ratio.</p></div>
 <div class="formula"><h3>Geometric series: total</h3><p class="math">Sₙ = a₁(rⁿ − 1)/(r − 1), r ≠ 1</p><p>Use to find the sum of the first n terms of a geometric sequence. If r = 1, then Sₙ = na₁.</p></div>
+</div></section>
+<section class="formula-group" aria-labelledby="financial-formulas-title"><h3 id="financial-formulas-title">Financial applications</h3><div class="formulas">
 <div class="formula"><h3>Compound interest: accumulated value</h3><p class="math">A = P(1 + i)ⁿ</p><p>P = starting principal; i = interest rate per compounding period as a decimal; n = number of periods. Use for a single starting amount growing with compound interest.</p></div>
 <div class="formula"><h3>Equal periodic loan payments</h3><p class="math">R = P i / [1 − (1 + i)⁻ⁿ]</p><p>For equal payments at the end of each period on a loan with a fixed periodic interest rate. P = loan principal; i = rate per payment period; n = total number of payments. This formula assumes a standard fully amortizing loan and excludes fees or other charges.</p></div>
-</div>
+</div></section></div>
 <p><strong>Remember:</strong> a sequence is a list of terms; a series is the sum of terms. A single investment growing over time is different from repeated deposits or loan payments.</p></div>
-<div class="panel"><h2>Worked Example: Savings Plan</h2><p><strong>Problem:</strong> Ana saves ₱100 in week 1 and increases the amount she saves by ₱50 every week. How much does she save in week 4? How much does she save altogether in the first 4 weeks?</p><ol>
+<details class="lesson-example panel"><summary><span class="lesson-example-label">Worked example 1</span><strong>Savings Plan</strong></summary><div class="lesson-example-content"><p><strong>Problem:</strong> Ana saves ₱100 in week 1 and increases the amount she saves by ₱50 every week. How much does she save in week 4? How much does she save altogether in the first 4 weeks?</p><ol>
 <li><strong>Given:</strong> first weekly deposit a₁ = ₱100, common difference d = ₱50, number of weeks n = 4.</li><li><strong>Asked:</strong> the deposit in week 4, and the total deposited in 4 weeks.</li><li><strong>Choose:</strong> use the arithmetic sequence formula for the week-4 deposit; use the arithmetic series formula for the total.</li><li><strong>Substitute:</strong> a₄ = 100 + (4 − 1)(50) = ₱250.</li><li><strong>Total:</strong> deposits are ₱100, ₱150, ₱200, ₱250. S₄ = 100 + 150 + 200 + 250 = ₱700.</li><li><strong>Check:</strong> the deposits rise by ₱50 each week, and their sum is ₱700.</li>
-</ol></div>
-<div class="panel"><h2>Worked Example: Periodic Loan Payment</h2><p><strong>Problem:</strong> A borrower takes a ₱12,000 loan at 1% interest per month and repays it with 12 equal payments at the end of each month. Find the monthly payment. Ignore fees.</p><ol>
+</ol></div></details>
+<details class="lesson-example panel"><summary><span class="lesson-example-label">Worked example 2</span><strong>Periodic Loan Payment</strong></summary><div class="lesson-example-content"><p><strong>Problem:</strong> A borrower takes a ₱12,000 loan at 1% interest per month and repays it with 12 equal payments at the end of each month. Find the monthly payment. Ignore fees.</p><ol>
 <li><strong>Given:</strong> P = ₱12,000, i = 0.01 per month, n = 12 payments.</li><li><strong>Asked:</strong> the equal monthly payment R.</li><li><strong>Choose:</strong> use the periodic loan-payment formula because the loan is repaid through equal payments each month.</li><li><strong>Substitute:</strong> R = 12000(0.01) / [1 − (1.01)⁻¹²].</li><li><strong>Calculate:</strong> R ≈ ₱1,066.19 per month.</li><li><strong>Check:</strong> 12 payments total about ₱12,794.28, more than the original loan because interest is included. Small differences may occur from rounding.</li>
-</ol><p class="small">Teacher note: use the calculator for this example and explain that the interest rate and payment period must use the same time unit.</p></div>
+</ol><p class="small">Teacher note: use the calculator for this example and explain that the interest rate and payment period must use the same time unit.</p></div></details>
 <div class="actions"><button class="primary" onclick="showTab('game')">I’m ready to play</button></div>
 </section>
 <section id="visual" class="hidden">
@@ -79,9 +86,9 @@
 <div class="game-intro-copy"><p class="game-eyebrow">Math Jeopardy</p><h2>Choose a challenge</h2><p>Pick a category and point value, then work through the problem one step at a time.</p></div>
 <details class="game-instructions"><summary>How to play</summary><ol><li>Choose a category and point value. Questions progress from easier identification to more complex applications.</li><li>Identify what is given and what you need to find before choosing a formula.</li><li>Work on paper, explain your reasoning aloud, or use the optional notes below.</li><li>Use the hint if needed, then reveal the worked solution to review each step.</li><li>Your teacher may award partial credit for sound reasoning, even if the final answer is not correct.</li></ol><p class="small">You may use the formula sheet and a calculator if your teacher permits. The game does not require audio or an internet connection.</p></details>
 </div>
-<div class="panel scorebar" aria-label="Game progress">
+<div class="panel scorebar" role="group" aria-label="Game progress">
 <span class="game-stat"><span class="game-stat-label">Score</span><span class="game-stat-value"><strong id="score" aria-live="polite" aria-atomic="true">0</strong><span>points</span></span></span>
-<span class="game-stat"><span class="game-stat-label">Questions reviewed</span><span class="game-stat-value"><strong id="done" aria-live="polite" aria-atomic="true">0</strong><span>/ 25</span></span></span>
+<span class="game-stat game-stat-progress"><span class="game-stat-label">Questions reviewed</span><span class="game-stat-value"><strong id="done" aria-live="polite" aria-atomic="true">0</strong><span>/ 25</span></span><progress id="reviewProgress" max="25" value="0" aria-label="Questions reviewed"></progress></span>
 <p id="progressText" role="status" aria-live="polite">Choose a question to begin.</p>
 </div>
 <div class="game-board-section">

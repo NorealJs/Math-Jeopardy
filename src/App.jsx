@@ -3,11 +3,13 @@ import legacyMarkup from './legacy-content.html?raw';
 
 const tabs = [
   ['learn', 'Learn First'],
-  ['visual', 'Visual pathway'],
+  ['visual', 'Video lessons'],
   ['game', 'Play Jeopardy'],
   ['assessment', 'Exit Ticket'],
   ['guide', 'Teacher Guide']
 ];
+
+const logoSrc = `${import.meta.env.BASE_URL}math-jeopardy.svg`;
 
 const contentMarkup = legacyMarkup.replace(
   /(<section\b[^>]*\bid="(?:admin|share|game|assessment|guide|visual)"[^>]*?)\sclass="hidden(?:\s+([^"]+))?"/g,
@@ -59,9 +61,22 @@ function App() {
   const [activeTab, setActiveTab] = useState('learn');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 760px)').matches);
   const [legacyError, setLegacyError] = useState('');
   const menuToggleRef = useRef(null);
   const mobileNavWasOpen = useRef(false);
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 760px)');
+    const onBreakpointChange = (event) => {
+      setIsMobile(event.matches);
+      if (!event.matches) setMobileNavOpen(false);
+    };
+
+    setIsMobile(mobileQuery.matches);
+    mobileQuery.addEventListener('change', onBreakpointChange);
+    return () => mobileQuery.removeEventListener('change', onBreakpointChange);
+  }, []);
 
   useEffect(() => {
     const onNavigate = (event) => {
@@ -122,8 +137,8 @@ function App() {
       <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${mobileNavOpen ? ' mobile-nav-open' : ''}`}>
         <aside className="app-sidebar" aria-label="Site navigation">
           <div className="sidebar-brand">
-            <span className="brand-mark" aria-hidden="true">🎯</span>
-            <span className="brand-name">Math Jeopardy</span>
+            <span className="brand-mark" aria-hidden="true"><img src={logoSrc} alt="" /></span>
+            <span className="brand-name">Math Jeopardy!</span>
           </div>
           <p className="sidebar-caption">Learning menu</p>
           <nav id="main-navigation" className="nav" aria-label="Main navigation">
@@ -160,11 +175,13 @@ function App() {
               ref={menuToggleRef}
               className="menu-toggle"
               type="button"
-              aria-label={mobileNavOpen ? 'Close navigation menu' : sidebarCollapsed ? 'Expand navigation sidebar' : 'Collapse navigation sidebar'}
-              aria-expanded={window.matchMedia('(max-width: 760px)').matches ? mobileNavOpen : !sidebarCollapsed}
+              aria-label={isMobile
+                ? mobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'
+                : sidebarCollapsed ? 'Expand navigation sidebar' : 'Collapse navigation sidebar'}
+              aria-expanded={isMobile ? mobileNavOpen : !sidebarCollapsed}
               aria-controls="main-navigation"
               onClick={() => {
-                if (window.matchMedia('(max-width: 760px)').matches) {
+                if (isMobile) {
                   setMobileNavOpen((open) => !open);
                 } else {
                   setSidebarCollapsed((collapsed) => !collapsed);
@@ -174,7 +191,7 @@ function App() {
               <MenuIcon />
             </button>
             <div className="header-title">
-              <h1>🎯 MATH JEOPARDY!</h1>
+              <h1><img className="header-logo" src={logoSrc} alt="" />Math Jeopardy!</h1>
               <div className="header-subtitle">
                 <p>Sequences, Series, and Financial Applications</p>
                 <span className="header-grade">Grade 11 <span aria-hidden="true">•</span> Gen Math</span>
